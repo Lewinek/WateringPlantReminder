@@ -43,4 +43,8 @@ ext {
             composeTooling     : "androidx.compose.ui:ui-tooling:$versions.compose",
             composeTestManifest: "androidx.compose.ui:ui-test-manifest:$versions.compose",
     ]
+
+    coroutinesDependencies = [
+            coroutinesAndroid: "org.jetbrains.kotlinx:kotlinx-coroutines-android:$versions.coroutinesAndroid"
+    ]
 }
