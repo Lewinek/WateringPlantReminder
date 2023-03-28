@@ -4,11 +4,14 @@ ext {
             coreKtx        : '1.9.0',
             appCompat      : '1.6.1',
             androidMaterial: '1.8.0',
+            navigation     : '2.5.3',
     ]
 
     androidXDependencies = [
-            coreKtx        : "androidx.core:core-ktx:$versions.coreKtx",
-            appCompat      : "androidx.appcompat:appcompat:$versions.versions",
-            androidMaterial: "com.google.android.material:material:$versions.versions"
+            coreKtx           : "androidx.core:core-ktx:$versions.coreKtx",
+            appCompat         : "androidx.appcompat:appcompat:$versions.versions",
+            androidMaterial   : "com.google.android.material:material:$versions.versions",
+            navigationFragment: "androidx.navigation:navigation-fragment-ktx:$versions.navigation",
+            navigationUi      : "androidx.navigation:navigation-ui-ktx:$versions.navigation",
     ]
 }
