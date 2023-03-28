@@ -1,12 +1,14 @@
 ext {
 
     versions = [
-            coreKtx  : '1.9.0',
-            appCompat: '1.6.1',
+            coreKtx        : '1.9.0',
+            appCompat      : '1.6.1',
+            androidMaterial: '1.8.0',
     ]
 
     androidXDependencies = [
-            coreKtx  : "androidx.core:core-ktx:$versions.coreKtx",
-            appCompat: "androidx.appcompat:appcompat:$versions.versions",
+            coreKtx        : "androidx.core:core-ktx:$versions.coreKtx",
+            appCompat      : "androidx.appcompat:appcompat:$versions.versions",
+            androidMaterial: "com.google.android.material:material:$versions.versions"
     ]
 }
