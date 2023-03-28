@@ -8,6 +8,7 @@ ext {
             compose          : '1.4.0',
             composeMaterial  : '1.1.0-beta01',
             activityCompose  : '1.7.01',
+            lifecycleRuntime : '2.6.1',
     ]
 
     androidXDependencies = [
@@ -20,5 +21,6 @@ ext {
             compose           : "androidx.compose.ui:ui:$versions.compose",
             composePreview    : "androidx.compose.ui:ui-tooling-preview:$versions.compose",
             composeMaterial   : "androidx.compose.material3:material3:$versions.composeMaterial",
+            lifecycleRuntime  : "androidx.lifecycle:lifecycle-runtime-ktx:$versions.lifecycleRuntime",
     ]
 }
