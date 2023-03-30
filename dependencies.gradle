@@ -57,7 +57,8 @@ ext {
     ]
 
     koinDependencies = [
-            koinAndroid: "io.insert-koin:koin-android:$versions.koin"
+            koinAndroid: "io.insert-koin:koin-android:$versions.koin",
+            koinCompose: "io.insert-koin:koin-androidx-compose:$versions.koin"
     ]
 
     networkDependencies = [
