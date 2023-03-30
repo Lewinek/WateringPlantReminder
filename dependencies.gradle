@@ -70,9 +70,12 @@ ext {
             moshiConverter   : "com.squareup.retrofit2:converter-moshi:$versions.moshiConverter",
     ]
 
-    roomDependencies = [
-            roomCompiler: "androidx.room:room-compiler:$versions.room",
-            roomRuntime : "androidx.room:room-runtime:$versions.room",
-            roomKtx     : "androidx.room:room-ktx:$versions.room"
+    roomRuntimeDependencies = [
+            roomRuntime: "androidx.room:room-runtime:$versions.room",
+            roomKtx    : "androidx.room:room-ktx:$versions.room"
+    ]
+
+    roomCompilerDependencies = [
+            roomCompiler: "androidx.room:room-compiler:$versions.room"
     ]
 }

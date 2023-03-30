@@ -4,11 +4,9 @@ plugins {
 }
 
 android {
-    namespace 'com.example.data_source'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.data_source"
         minSdk 24
         targetSdk 33
         versionCode 1
@@ -36,5 +34,6 @@ dependencies {
     implementation androidXDependencies.values()
     implementation testDependencies.values()
     implementation koinDependencies.values()
-    implementation roomDependencies.values()
+    implementation roomRuntimeDependencies.values()
+    annotationProcessor roomCompilerDependencies.values()
 }
