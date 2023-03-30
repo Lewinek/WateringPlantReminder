@@ -13,4 +13,6 @@ val dataSourceModule = module {
             .build()
     }
     single { get<PlantDatabase>().plantDao }
+
+    factory<PlantRepository> { PlantRepositoryImpl(get()) }
 }
