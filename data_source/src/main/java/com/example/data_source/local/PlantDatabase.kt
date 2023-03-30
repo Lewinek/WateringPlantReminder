@@ -8,5 +8,5 @@ import androidx.room.RoomDatabase
     version = 1
 )
 abstract class PlantDatabase : RoomDatabase() {
-    abstract val plantDao: PlantDao
+    abstract fun plantDao(): PlantDao
 }
