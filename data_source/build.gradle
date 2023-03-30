@@ -1,23 +1,20 @@
 plugins {
-    id 'com.android.application'
-    id 'org.jetbrains.kotlin.android'
+    id 'com.android.library'
+    id 'kotlin-android'
 }
 
 android {
-    namespace 'com.example.wateringreminder'
+    namespace 'com.example.data_source'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.wateringreminder"
+        applicationId "com.example.data_source"
         minSdk 24
         targetSdk 33
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        vectorDrawables {
-            useSupportLibrary true
-        }
     }
 
     buildTypes {
@@ -33,30 +30,9 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-    buildFeatures {
-        viewBinding true
-        compose true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion '1.4.0'
-    }
-    packagingOptions {
-        resources {
-            excludes += '/META-INF/{AL2.0,LGPL2.1}'
-            exclude("META-INF/LICENSE.md")
-            exclude("META-INF/LICENSE-notice.md")
-        }
-    }
-    testOptions {
-        unitTests.all {
-            useJUnitPlatform()
-        }
-    }
 }
 
 dependencies {
-    implementation project(":data_source")
-
     implementation androidXDependencies.values()
     implementation testDependencies.values()
     implementation koinDependencies.values()
