@@ -1,4 +1,4 @@
-package com.example.wateringreminder.compose.plantcreator
+package com.example.wateringreminder.plantcreator
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
