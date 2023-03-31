@@ -1,12 +1,14 @@
 package com.example.data_source.local
 
 import androidx.room.Entity
+import androidx.room.Index
 import androidx.room.PrimaryKey
 import com.example.data_source.Plant
 
-@Entity
+@Entity(tableName = "plant", indices = [Index(value = ["name"], unique = true)])
 data class PlantCached(
-    @PrimaryKey val id: Int? = null,
+    @PrimaryKey(autoGenerate = true)
+    val id: Int? = null,
     val name: String,
 ) {
     constructor(plant: Plant) : this(
