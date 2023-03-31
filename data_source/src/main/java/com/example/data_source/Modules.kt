@@ -12,5 +12,7 @@ val dataSourceModule = module {
             .fallbackToDestructiveMigration()
             .build()
     }
-    single { get<PlantDatabase>().plantDao }
+    single { get<PlantDatabase>().plantDao() }
+
+    factory<PlantRepository> { PlantRepositoryImpl(get()) }
 }
