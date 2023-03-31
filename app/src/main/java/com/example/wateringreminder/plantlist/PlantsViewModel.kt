@@ -16,7 +16,17 @@ class PlantsViewModel(
     val state: State<PlantsState> = _state
 
     init {
+        addPlants()
         getPlants()
+    }
+
+    private fun addPlants() {
+        viewModelScope.launch {
+            plantsRepository.insertPlant(Plant(name = "Irys"))
+            plantsRepository.insertPlant(Plant(name = "Bratek"))
+            plantsRepository.insertPlant(Plant(name = "Dracena"))
+            plantsRepository.insertPlant(Plant(name = "Sukulent"))
+        }
     }
 
     private fun getPlants() {
