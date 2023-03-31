@@ -1,4 +1,4 @@
-package com.example.wateringreminder.compose.plantlist
+package com.example.wateringreminder.plantlist
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
