@@ -17,17 +17,18 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun PlantsScreen(
-    viewModel: PlantsViewModel = koinViewModel()
-) {
 
+) {
+    val viewModel: PlantsViewModel = koinViewModel()
     val state = viewModel.state.value
 
-    LazyColumn(modifier = Modifier.fillMaxSize()) {
+    LazyColumn() {
         items(state.plants) { plants ->
             Column {
                 Text(
                     text = plants.name,
-                    modifier = Modifier.padding(vertical = 8.dp)
+                    modifier = Modifier.padding(vertical = 8.dp),
+                    color = Color.White
                 )
                 Divider(color = Color.LightGray)
             }
