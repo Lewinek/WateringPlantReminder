@@ -58,7 +58,7 @@ fun RowScope.AddItem(
         },
         icon = {
             Icon(
-                imageVector = screen.icon,
+                painter = screen.icon.asPainterResource(),
                 contentDescription = " Navigation Icon"
             )
         },
@@ -66,7 +66,7 @@ fun RowScope.AddItem(
             it.route == screen.route
         } == true,
         onClick = {
-            navController.navigate(screen.route){
+            navController.navigate(screen.route) {
                 popUpTo(navController.graph.findStartDestination().id)
                 launchSingleTop = true
             }
