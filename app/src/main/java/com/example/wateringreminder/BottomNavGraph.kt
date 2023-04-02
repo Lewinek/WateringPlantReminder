@@ -15,10 +15,13 @@ fun BottomNavGraph(navController: NavHostController) {
         startDestination = BottomBarScreen.Plants.route
     ) {
         composable(route = BottomBarScreen.Plants.route) {
-            PlantsScreen()
+            PlantsScreen(
+                onNavigateToPlantCreator = { navController.navigate("plantCreator")}
+            )
         }
         composable(route = BottomBarScreen.Articles.route) {
             ArticlesScreen()
         }
+        plantNavGraph(navController)
     }
 }
