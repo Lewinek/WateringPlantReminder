@@ -44,9 +44,3 @@ fun PlantsScreen(
 
     }
 }
-
-//@Preview
-//@Composable
-//fun PlantsScreenPreview() {
-////    PlantsScreen()
-//}
