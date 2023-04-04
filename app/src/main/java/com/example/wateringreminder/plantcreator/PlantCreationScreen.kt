@@ -13,9 +13,7 @@ import androidx.navigation.compose.rememberNavController
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun PlantCreationScreen(
-    navController: NavController = rememberNavController()
-) {
+fun PlantCreationScreen() {
 
     var viewModel: PlantCreationViewModel = koinViewModel()
     var plantName by remember {
