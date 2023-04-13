@@ -1,16 +1,20 @@
 package com.example.wateringreminder.plantcreator
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.Button
-import androidx.compose.material.Text
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import com.example.wateringreminder.AddButton
 import com.example.wateringreminder.LabelTextField
+import com.example.wateringreminder.R
+import com.example.wateringreminder.ui.theme.LightBlue
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -21,15 +25,37 @@ fun PlantCreationScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.White),
+            .background(color = Color.White),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        LabelTextField("Name", onValueChange = { viewModel.updatePlantName(it) })
-        LabelTextField("Location", onValueChange = { viewModel.updatePlantLocation(it) })
-        Button(
-            onClick = { }
+        Box(
+            modifier = Modifier
+                .background(
+                    color = LightBlue,
+                    RoundedCornerShape(bottomStart = 24.dp, bottomEnd = 24.dp)
+                )
+                .weight(1f)
+                .fillMaxSize(),
+            Alignment.Center
         ) {
-            Text("Add")
+            Icon(
+                painter = painterResource(id = R.drawable.add),
+                contentDescription = null,
+                modifier = Modifier.size(24.dp)
+            )
+        }
+        Box(
+            modifier = Modifier
+                .background(color = Color.White)
+                .weight(1f),
+            Alignment.TopCenter
+        ) {
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                LabelTextField("Name", onValueChange = { viewModel.updatePlantName(it) })
+                LabelTextField("Location", onValueChange = { viewModel.updatePlantLocation(it) })
+                AddButton(modifier = Modifier, onClick = { viewModel.createPlant() })
+                Spacer(modifier = Modifier.padding(bottom = 16.dp))
+            }
         }
     }
 }
