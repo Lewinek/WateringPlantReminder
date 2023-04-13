@@ -25,6 +25,7 @@ fun PlantCreationScreen() {
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         LabelTextField("Name", onValueChange = { viewModel.updatePlantName(it) })
+        LabelTextField("Location", onValueChange = { viewModel.updatePlantLocation(it) })
         Button(
             onClick = { }
         ) {

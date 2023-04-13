@@ -14,6 +14,7 @@ class PlantCreationViewModel(
 ) : ViewModel() {
 
     private var plantName by mutableStateOf("")
+    private var location by mutableStateOf("")
 
     fun createPlant() {
         viewModelScope.launch {
@@ -23,5 +24,9 @@ class PlantCreationViewModel(
 
     fun updatePlantName(name: String) {
         plantName = name
+    }
+
+    fun updatePlantLocation(location: String){
+        this.location = location
     }
 }
