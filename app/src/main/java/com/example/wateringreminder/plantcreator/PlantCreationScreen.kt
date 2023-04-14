@@ -26,6 +26,7 @@ import org.koin.androidx.compose.koinViewModel
 fun PlantCreationScreen() {
 
     val viewModel: PlantCreationViewModel = koinViewModel()
+    val DAYS = 7
 
     Column(
         modifier = Modifier
@@ -71,13 +72,17 @@ fun PlantCreationScreen() {
                     )
                 }
                 LazyRow(
-                    modifier = Modifier
+                    Modifier
                         .fillMaxWidth()
                         .padding(vertical = 8.dp, horizontal = 16.dp),
                     horizontalArrangement = Arrangement.spacedBy(10.dp)
                 ) {
-                    items(7) { index ->
-                        DayButton(number = index.plus(1).toString()) {}
+                    items(DAYS) { index ->
+                        DayButton(
+                            dayNumber = index.plus(1),
+                            _selectedIndex = viewModel.index.value,
+                            onClick = { viewModel.updateIndex(it) }
+                        )
                     }
                 }
                 AddButton(modifier = Modifier, onClick = { viewModel.createPlant() })
