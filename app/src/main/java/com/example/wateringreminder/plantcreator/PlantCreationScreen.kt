@@ -15,9 +15,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.wateringreminder.AddButton
-import com.example.wateringreminder.DayButton
-import com.example.wateringreminder.LabelTextField
+import com.example.wateringreminder.*
 import com.example.wateringreminder.R
 import com.example.wateringreminder.ui.theme.DarkText
 import com.example.wateringreminder.ui.theme.LightBlue
@@ -27,7 +25,6 @@ import org.koin.androidx.compose.koinViewModel
 fun PlantCreationScreen() {
 
     val viewModel: PlantCreationViewModel = koinViewModel()
-    val DAYS = 7
 
     Column(
         modifier = Modifier
@@ -82,7 +79,7 @@ fun PlantCreationScreen() {
                         .padding(vertical = 8.dp, horizontal = 16.dp),
                     horizontalArrangement = Arrangement.spacedBy(10.dp)
                 ) {
-                    items(DAYS) { index ->
+                    items(Constants.DAYS) { index ->
                         DayButton(
                             dayNumber = index.plus(1),
                             _selectedIndex = viewModel.index.value,
