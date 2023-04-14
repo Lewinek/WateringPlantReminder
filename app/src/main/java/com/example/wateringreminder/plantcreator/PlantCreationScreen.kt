@@ -1,40 +1,94 @@
-package com.example.wateringreminder.compose
+package com.example.wateringreminder.plantcreator
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.Button
-import androidx.compose.material.TextField
-import androidx.compose.runtime.*
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Icon
+import androidx.compose.material.Text
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Alignment.Companion.Start
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
-import com.example.wateringreminder.plantcreator.PlantCreationViewModel
+import androidx.compose.ui.unit.dp
+import com.example.wateringreminder.*
+import com.example.wateringreminder.R
+import com.example.wateringreminder.ui.theme.DarkText
+import com.example.wateringreminder.ui.theme.LightBlue
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun PlantCreationScreen(
-    navController: NavController = rememberNavController()
-) {
+fun PlantCreationScreen() {
 
-    var viewModel: PlantCreationViewModel = koinViewModel()
-    var plantName by remember {
-        mutableStateOf("")
-    }
+    val viewModel: PlantCreationViewModel = koinViewModel()
 
     Column(
-        modifier = Modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally
+        modifier = Modifier
+            .fillMaxSize()
+            .background(color = Color.White),
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        TextField(
-            value = plantName,
-            onValueChange = { text ->
-                plantName = text
+        Box(
+            modifier = Modifier
+                .background(
+                    color = LightBlue,
+                    RoundedCornerShape(bottomStart = 24.dp, bottomEnd = 24.dp)
+                )
+                .weight(1f)
+                .fillMaxSize(),
+            Alignment.Center
+        ) {
+            Icon(
+                painter = painterResource(id = R.drawable.add),
+                contentDescription = null,
+                modifier = Modifier.size(24.dp)
+            )
+        }
+        Box(
+            modifier = Modifier
+                .background(color = Color.White)
+                .weight(1f),
+            Alignment.TopCenter
+        ) {
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                LabelTextField(
+                    stringResource(R.string.plant_name_label),
+                    onValueChange = { viewModel.updatePlantName(it) })
+                LabelTextField(
+                    stringResource(R.string.plant_location_label),
+                    onValueChange = { viewModel.updatePlantLocation(it) })
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .align(Start)
+                        .padding(top = 8.dp)
+                ) {
+                    Text(
+                        text = stringResource(R.string.water_days_label),
+                        color = DarkText,
+                        modifier = Modifier.padding(horizontal = 24.dp)
+                    )
+                }
+                LazyRow(
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 8.dp, horizontal = 16.dp),
+                    horizontalArrangement = Arrangement.spacedBy(10.dp)
+                ) {
+                    items(Constants.DAYS) { index ->
+                        DayButton(
+                            dayNumber = index.plus(1),
+                            _selectedIndex = viewModel.index.value,
+                            onClick = { viewModel.updateIndex(it) }
+                        )
+                    }
+                }
+                AddButton(modifier = Modifier.padding(16.dp), onClick = { viewModel.createPlant() })
             }
-        )
-        Button(onClick = { viewModel.createPlant(plantName) }) {
-
         }
     }
 }

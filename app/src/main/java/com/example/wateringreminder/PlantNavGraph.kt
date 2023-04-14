@@ -4,7 +4,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
-import com.example.wateringreminder.compose.PlantCreationScreen
+import com.example.wateringreminder.plantcreator.PlantCreationScreen
 
 fun NavGraphBuilder.plantNavGraph(navController: NavController) {
     navigation(
