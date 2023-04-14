@@ -19,7 +19,13 @@ class PlantCreationViewModel(
 
     fun createPlant() {
         viewModelScope.launch {
-            plantRepository.insertPlant(Plant(name = plantName))
+            plantRepository.insertPlant(
+                Plant(
+                    name = plantName,
+                    location = location,
+                    numberOfDaysToWatering = index.value
+                )
+            )
         }
     }
 
