@@ -12,6 +12,7 @@ import androidx.compose.ui.Alignment.Companion.Start
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.wateringreminder.AddButton
@@ -57,8 +58,12 @@ fun PlantCreationScreen() {
             Alignment.TopCenter
         ) {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                LabelTextField("Name", onValueChange = { viewModel.updatePlantName(it) })
-                LabelTextField("Location", onValueChange = { viewModel.updatePlantLocation(it) })
+                LabelTextField(
+                    stringResource(R.string.plant_name_label),
+                    onValueChange = { viewModel.updatePlantName(it) })
+                LabelTextField(
+                    stringResource(R.string.plant_location_label),
+                    onValueChange = { viewModel.updatePlantLocation(it) })
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -66,7 +71,7 @@ fun PlantCreationScreen() {
                         .padding(top = 8.dp)
                 ) {
                     Text(
-                        text = "Water days",
+                        text = stringResource(R.string.water_days_label),
                         color = DarkText,
                         modifier = Modifier.padding(horizontal = 24.dp)
                     )
@@ -85,8 +90,7 @@ fun PlantCreationScreen() {
                         )
                     }
                 }
-                AddButton(modifier = Modifier, onClick = { viewModel.createPlant() })
-                Spacer(modifier = Modifier.padding(bottom = 16.dp))
+                AddButton(modifier = Modifier.padding(16.dp), onClick = { viewModel.createPlant() })
             }
         }
     }
