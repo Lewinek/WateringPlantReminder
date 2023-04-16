@@ -23,9 +23,24 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun PlantCreationScreen() {
-
     val viewModel: PlantCreationViewModel = koinViewModel()
+    PlantCreationScreenContent(
+        viewModel::updatePlantName,
+        viewModel::updatePlantLocation,
+        viewModel::updateIndex,
+        viewModel::createPlant,
+        viewModel.dayIndex.value
+    )
+}
 
+@Composable
+fun PlantCreationScreenContent(
+    updatePlantName: (String) -> Unit,
+    updatePlantLocation: (String) -> Unit,
+    updateIndex: (Int) -> Unit,
+    createPlant: () -> Unit,
+    dayIndex: Int
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -57,10 +72,10 @@ fun PlantCreationScreen() {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 LabelTextField(
                     stringResource(R.string.plant_name_label),
-                    onValueChange = { viewModel.updatePlantName(it) })
+                    onValueChange = { updatePlantName(it) })
                 LabelTextField(
                     stringResource(R.string.plant_location_label),
-                    onValueChange = { viewModel.updatePlantLocation(it) })
+                    onValueChange = { updatePlantLocation(it) })
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -82,15 +97,27 @@ fun PlantCreationScreen() {
                     items(Constants.DAYS) { index ->
                         DayButton(
                             dayNumber = index.plus(1),
-                            _selectedIndex = viewModel.index.value,
-                            onClick = { viewModel.updateIndex(it) }
+                            _selectedIndex = dayIndex,
+                            onClick = { updateIndex(it) }
                         )
                     }
                 }
-                AddButton(modifier = Modifier.padding(16.dp), onClick = { viewModel.createPlant() })
+                AddButton(modifier = Modifier.padding(16.dp), onClick = { createPlant() })
             }
         }
     }
+}
+
+@Preview
+@Composable
+fun PlantCreationScreenContentPreview() {
+    PlantCreationScreenContent(
+        updatePlantName = {},
+        updatePlantLocation = {},
+        updateIndex = {},
+        createPlant = { /*TODO*/ },
+        dayIndex = 1
+    )
 }
 
 @Preview

@@ -15,17 +15,24 @@ class PlantCreationViewModel(
 
     private var plantName by mutableStateOf("")
     private var location by mutableStateOf("")
-    var index = mutableStateOf(-1)
+    var dayIndex = mutableStateOf(-1)
+    private var numberOfDaysToWatering: Int? = null
+        get() {
+            return if (dayIndex.value == -1) null else dayIndex.value
+        }
+
 
     fun createPlant() {
         viewModelScope.launch {
-            plantRepository.insertPlant(
-                Plant(
-                    name = plantName,
-                    location = location,
-                    numberOfDaysToWatering = index.value
+            if (plantName.trim().isNotEmpty()) {
+                plantRepository.insertPlant(
+                    Plant(
+                        name = plantName,
+                        location = location,
+                        numberOfDaysToWatering = numberOfDaysToWatering
+                    )
                 )
-            )
+            }
         }
     }
 
@@ -38,6 +45,6 @@ class PlantCreationViewModel(
     }
 
     fun updateIndex(index: Int) {
-        this.index.value = index
+        this.dayIndex.value = index
     }
 }
