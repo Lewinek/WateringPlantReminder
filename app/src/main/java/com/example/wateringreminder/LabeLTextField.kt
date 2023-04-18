@@ -22,7 +22,8 @@ import com.example.wateringreminder.ui.theme.DarkText
 @Composable
 fun LabelTextField(
     label: String,
-    onValueChange: (String) -> Unit
+    onValueChange: (String) -> Unit,
+    isError: Boolean
 ) {
 
     var value by remember {
@@ -43,8 +44,8 @@ fun LabelTextField(
         OutlinedTextField(
             value = value,
             onValueChange = {
-                onValueChange(value.text)
                 value = it
+                onValueChange(value.text)
             },
             textStyle = TextStyle(color = DarkText),
             shape = RoundedCornerShape(12.dp),
@@ -53,7 +54,8 @@ fun LabelTextField(
                 unfocusedBorderColor = BorderTextField,
                 backgroundColor = BackgroundGrey
             ),
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            isError = isError
         )
     }
 }
@@ -61,5 +63,5 @@ fun LabelTextField(
 @Preview
 @Composable
 fun LabelTextFieldPreview() {
-    LabelTextField("", onValueChange = {})
+    LabelTextField("", onValueChange = {}, false)
 }
