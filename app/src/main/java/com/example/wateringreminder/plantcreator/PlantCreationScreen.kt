@@ -7,6 +7,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.Start
 import androidx.compose.ui.Modifier
@@ -24,12 +26,14 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun PlantCreationScreen() {
     val viewModel: PlantCreationViewModel = koinViewModel()
+    val creationUiState by viewModel.uiState.collectAsState()
     PlantCreationScreenContent(
         viewModel::updatePlantName,
         viewModel::updatePlantLocation,
         viewModel::updateIndex,
         viewModel::createPlant,
-        viewModel.dayIndex.value
+        viewModel.dayIndex.value,
+        viewModel.isPlantNameCorrect
     )
 }
 
@@ -39,7 +43,8 @@ fun PlantCreationScreenContent(
     updatePlantLocation: (String) -> Unit,
     updateIndex: (Int) -> Unit,
     createPlant: () -> Unit,
-    dayIndex: Int
+    dayIndex: Int,
+    isPlantNameCorrect: Boolean
 ) {
     Column(
         modifier = Modifier
@@ -72,10 +77,14 @@ fun PlantCreationScreenContent(
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 LabelTextField(
                     stringResource(R.string.plant_name_label),
-                    onValueChange = { updatePlantName(it) })
+                    onValueChange = { updatePlantName(it) },
+                    isPlantNameCorrect
+                )
                 LabelTextField(
                     stringResource(R.string.plant_location_label),
-                    onValueChange = { updatePlantLocation(it) })
+                    onValueChange = { updatePlantLocation(it) },
+                    false
+                )
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -116,7 +125,8 @@ fun PlantCreationScreenContentPreview() {
         updatePlantLocation = {},
         updateIndex = {},
         createPlant = { /*TODO*/ },
-        dayIndex = 1
+        dayIndex = 1,
+        isPlantNameCorrect = true
     )
 }
 
