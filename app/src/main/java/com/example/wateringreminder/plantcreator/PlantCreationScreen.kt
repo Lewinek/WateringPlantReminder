@@ -26,7 +26,6 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun PlantCreationScreen() {
     val viewModel: PlantCreationViewModel = koinViewModel()
-    val creationUiState by viewModel.uiState.collectAsState()
     PlantCreationScreenContent(
         viewModel::updatePlantName,
         viewModel::updatePlantLocation,
