@@ -7,6 +7,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.Start
 import androidx.compose.ui.Modifier
@@ -23,9 +25,26 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun PlantCreationScreen() {
-
     val viewModel: PlantCreationViewModel = koinViewModel()
+    PlantCreationScreenContent(
+        viewModel::updatePlantName,
+        viewModel::updatePlantLocation,
+        viewModel::updateIndex,
+        viewModel::createPlant,
+        viewModel.dayIndex.value,
+        viewModel.isPlantNameCorrect
+    )
+}
 
+@Composable
+fun PlantCreationScreenContent(
+    updatePlantName: (String) -> Unit,
+    updatePlantLocation: (String) -> Unit,
+    updateIndex: (Int) -> Unit,
+    createPlant: () -> Unit,
+    dayIndex: Int,
+    isPlantNameCorrect: Boolean
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -57,10 +76,14 @@ fun PlantCreationScreen() {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 LabelTextField(
                     stringResource(R.string.plant_name_label),
-                    onValueChange = { viewModel.updatePlantName(it) })
+                    onValueChange = { updatePlantName(it) },
+                    isPlantNameCorrect
+                )
                 LabelTextField(
                     stringResource(R.string.plant_location_label),
-                    onValueChange = { viewModel.updatePlantLocation(it) })
+                    onValueChange = { updatePlantLocation(it) },
+                    false
+                )
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -82,15 +105,28 @@ fun PlantCreationScreen() {
                     items(Constants.DAYS) { index ->
                         DayButton(
                             dayNumber = index.plus(1),
-                            _selectedIndex = viewModel.index.value,
-                            onClick = { viewModel.updateIndex(it) }
+                            _selectedIndex = dayIndex,
+                            onClick = { updateIndex(it) }
                         )
                     }
                 }
-                AddButton(modifier = Modifier.padding(16.dp), onClick = { viewModel.createPlant() })
+                AddButton(modifier = Modifier.padding(16.dp), onClick = { createPlant() })
             }
         }
     }
+}
+
+@Preview
+@Composable
+fun PlantCreationScreenContentPreview() {
+    PlantCreationScreenContent(
+        updatePlantName = {},
+        updatePlantLocation = {},
+        updateIndex = {},
+        createPlant = { /*TODO*/ },
+        dayIndex = 1,
+        isPlantNameCorrect = true
+    )
 }
 
 @Preview

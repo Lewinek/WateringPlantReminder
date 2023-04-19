@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.data_source.Plant
 import com.example.data_source.PlantRepository
+import com.example.wateringreminder.EmptyTextFieldValidator
 import kotlinx.coroutines.launch
 
 class PlantCreationViewModel(
@@ -15,22 +16,36 @@ class PlantCreationViewModel(
 
     private var plantName by mutableStateOf("")
     private var location by mutableStateOf("")
-    var index = mutableStateOf(-1)
+    var isPlantNameCorrect by mutableStateOf(false)
+    var dayIndex = mutableStateOf(-1)
+    private var numberOfDaysToWatering: Int? = null
+        get() {
+            return if (dayIndex.value == -1) null else dayIndex.value
+        }
+
 
     fun createPlant() {
-        viewModelScope.launch {
-            plantRepository.insertPlant(
-                Plant(
-                    name = plantName,
-                    location = location,
-                    numberOfDaysToWatering = index.value
+        if (isPlantNameCorrect) {
+            viewModelScope.launch {
+                plantRepository.insertPlant(
+                    Plant(
+                        name = plantName,
+                        location = location,
+                        numberOfDaysToWatering = numberOfDaysToWatering
+                    )
                 )
-            )
+            }
         }
+    }
+
+    private fun plantNameValid() {
+        val namePlantValid = EmptyTextFieldValidator()
+        isPlantNameCorrect = !namePlantValid.validate(plantName.trim())
     }
 
     fun updatePlantName(name: String) {
         plantName = name
+        plantNameValid()
     }
 
     fun updatePlantLocation(location: String) {
@@ -38,6 +53,6 @@ class PlantCreationViewModel(
     }
 
     fun updateIndex(index: Int) {
-        this.index.value = index
+        this.dayIndex.value = index
     }
 }

@@ -3,6 +3,6 @@ package com.example.data_source
 data class Plant(
     val id: Int? = null,
     val name: String,
-    val location: String,
-    val numberOfDaysToWatering: Int
+    val location: String? = null,
+    val numberOfDaysToWatering: Int? = null
 )
