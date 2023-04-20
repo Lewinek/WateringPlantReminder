@@ -27,8 +27,11 @@ fun DayButton(dayNumber: Int, _selectedIndex: Int, onClick: (Int) -> Unit) {
             selectedIndex = if (selectedIndex == dayNumber) -1 else dayNumber
             onClick(selectedIndex)
         },
-        Modifier.clip(RoundedCornerShape(8.dp)),
-        colors = ButtonDefaults.buttonColors(contentColor = color)
+        Modifier.clip(RoundedCornerShape(4.dp)),
+        colors = ButtonDefaults.buttonColors(
+            contentColor = color,
+            containerColor = color
+        )
     ) {
         Text(
             text = dayNumber.toString(),
