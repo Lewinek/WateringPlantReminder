@@ -40,7 +40,7 @@ fun WateringReminderTheme(
 
     MaterialTheme(
         colorScheme = appColorScheme,
-        typography = Typography,
+        typography = typography,
         shapes = Shapes,
         content = content
     )
