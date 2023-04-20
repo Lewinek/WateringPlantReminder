@@ -2,22 +2,19 @@ package com.example.wateringreminder.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Shapes
-import androidx.compose.material.darkColors
-import androidx.compose.material.lightColors
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.darkColorScheme
+import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.dp
 
-private val DarkColorPalette = darkColors(
+private val AppDarkColorScheme = darkColorScheme(
     primary = Purple200,
-    primaryVariant = Purple700,
     secondary = Teal200
 )
 
-private val LightColorPalette = lightColors(
+private val AppLightColorScheme = lightColorScheme(
     primary = Purple500,
-    primaryVariant = Purple700,
     secondary = Teal200
 
     /* Other default colors to override
@@ -35,14 +32,14 @@ fun WateringReminderTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable() () -> Unit
 ) {
-    val colors = if (darkTheme) {
-        DarkColorPalette
+    val appColorScheme = if (darkTheme) {
+        AppDarkColorScheme
     } else {
-        LightColorPalette
+        AppLightColorScheme
     }
 
     MaterialTheme(
-        colors = colors,
+        colorScheme = appColorScheme,
         typography = Typography,
         shapes = Shapes,
         content = content
