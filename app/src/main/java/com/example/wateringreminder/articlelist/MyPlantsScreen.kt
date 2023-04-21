@@ -13,22 +13,19 @@ import com.example.data_source.Plant
 import com.example.wateringreminder.PlantItem
 
 @Composable
-fun ArticlesScreen() {
+fun MyPlantsScreen() {
     Box(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.White),
         contentAlignment = Alignment.Center
     ) {
-        Text(
-            text = "Articles"
-        )
         PlantItem(Plant(name = "Sinocrassula yunnanensis"))
     }
 }
 
 @Preview
 @Composable
-fun ArticlesScreenPreview() {
-    ArticlesScreen()
+fun MyPlantsScreenPreview() {
+    MyPlantsScreen()
 }
