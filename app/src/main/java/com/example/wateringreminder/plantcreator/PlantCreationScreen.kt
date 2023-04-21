@@ -3,6 +3,7 @@ package com.example.wateringreminder.plantcreator
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -30,10 +31,8 @@ fun PlantCreationScreen() {
     PlantCreationScreenContent(
         viewModel::updatePlantName,
         viewModel::updatePlantLocation,
-        viewModel::updateIndex,
+        viewModel::updateSelectedDay,
         viewModel::createPlant,
-        viewModel.dayIndex.value,
-        viewModel.isPlantNameCorrect,
         uiState.value
     )
 }
@@ -42,10 +41,8 @@ fun PlantCreationScreen() {
 fun PlantCreationScreenContent(
     updatePlantName: (String) -> Unit,
     updatePlantLocation: (String) -> Unit,
-    updateIndex: (Int) -> Unit,
+    updateSelectedDay: (String) -> Unit,
     createPlant: () -> Unit,
-    dayIndex: Int,
-    isPlantNameCorrect: Boolean,
     uiState: CreationUiState
 ) {
     Column(
@@ -107,11 +104,11 @@ fun PlantCreationScreenContent(
                         .padding(vertical = 8.dp, horizontal = 16.dp),
                     horizontalArrangement = Arrangement.spacedBy(10.dp)
                 ) {
-                    items(Constants.DAYS) { index ->
+                    items(uiState.daysIntervalForSelection) { day ->
                         DayButton(
-                            dayNumber = index.plus(1),
-                            _selectedIndex = dayIndex,
-                            onClick = { updateIndex(it) }
+                            day = day,
+                            selectedDay = uiState.selectedDay,
+                            onClick = { updateSelectedDay(it) }
                         )
                     }
                 }
@@ -127,10 +124,8 @@ fun PlantCreationScreenContentPreview() {
     PlantCreationScreenContent(
         updatePlantName = {},
         updatePlantLocation = {},
-        updateIndex = {},
+        updateSelectedDay = {},
         createPlant = { /*TODO*/ },
-        dayIndex = 1,
-        isPlantNameCorrect = true,
         uiState = CreationUiState()
     )
 }

@@ -17,15 +17,14 @@ import com.example.wateringreminder.ui.theme.DarkText
 import com.example.wateringreminder.ui.theme.LightText
 
 @Composable
-fun DayButton(dayNumber: Int, _selectedIndex: Int, onClick: (Int) -> Unit) {
+fun DayButton(day: String, selectedDay: String? = null, onClick: (String) -> Unit) {
 
-    var selectedIndex = _selectedIndex
-    val color = if (selectedIndex == dayNumber) DarkText else BackgroundGrey
+
+    val color = if (day == selectedDay) DarkText else BackgroundGrey
 
     Button(
         onClick = {
-            selectedIndex = if (selectedIndex == dayNumber) -1 else dayNumber
-            onClick(selectedIndex)
+            onClick(day)
         },
         Modifier.clip(RoundedCornerShape(4.dp)),
         colors = ButtonDefaults.buttonColors(
@@ -34,7 +33,7 @@ fun DayButton(dayNumber: Int, _selectedIndex: Int, onClick: (Int) -> Unit) {
         )
     ) {
         Text(
-            text = dayNumber.toString(),
+            text = day,
             modifier = Modifier
                 .background(color = color)
                 .padding(vertical = 8.dp),
@@ -47,5 +46,5 @@ fun DayButton(dayNumber: Int, _selectedIndex: Int, onClick: (Int) -> Unit) {
 @Preview
 @Composable
 fun DayButtonPreview() {
-    DayButton(dayNumber = 1, _selectedIndex = 1, onClick = { })
+    DayButton("", "", onClick = { })
 }

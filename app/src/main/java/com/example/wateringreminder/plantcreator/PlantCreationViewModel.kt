@@ -66,7 +66,7 @@ class PlantCreationViewModel(
         this.location = location
     }
 
-    fun updateIndex(index: Int) {
-        this.dayIndex.value = index
+    fun updateSelectedDay(selectedDay: String) {
+        _uiState.update { uiState -> uiState.copy(selectedDay = selectedDay) }
     }
 }
