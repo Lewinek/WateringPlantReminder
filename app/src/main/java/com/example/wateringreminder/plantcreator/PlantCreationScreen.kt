@@ -22,6 +22,7 @@ import com.example.wateringreminder.*
 import com.example.wateringreminder.R
 import com.example.wateringreminder.ui.theme.DarkText
 import com.example.wateringreminder.ui.theme.LightBlue
+import com.example.wateringreminder.watering.CreationUiState
 import org.koin.androidx.compose.koinViewModel
 
 @Composable

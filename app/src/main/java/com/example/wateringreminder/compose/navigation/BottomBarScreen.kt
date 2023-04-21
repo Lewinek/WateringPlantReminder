@@ -1,4 +1,7 @@
-package com.example.wateringreminder
+package com.example.wateringreminder.compose.navigation
+
+import com.example.wateringreminder.IconResource
+import com.example.wateringreminder.R
 
 sealed class BottomBarScreen(
     val route: String,

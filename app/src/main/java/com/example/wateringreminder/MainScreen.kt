@@ -16,6 +16,7 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.wateringreminder.compose.navigation.BottomBarScreen
 import com.example.wateringreminder.ui.theme.BorderTextField
 import com.example.wateringreminder.ui.theme.BottomNav
 import com.example.wateringreminder.ui.theme.BottomNavIcon

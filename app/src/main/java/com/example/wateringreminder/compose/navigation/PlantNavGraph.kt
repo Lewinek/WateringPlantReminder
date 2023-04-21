@@ -1,4 +1,4 @@
-package com.example.wateringreminder
+package com.example.wateringreminder.compose.navigation
 
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder

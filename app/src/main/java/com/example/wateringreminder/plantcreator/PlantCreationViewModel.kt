@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.data_source.Plant
 import com.example.data_source.PlantRepository
-import com.example.wateringreminder.CreationUiState
+import com.example.wateringreminder.watering.CreationUiState
 import com.example.wateringreminder.EmptyTextFieldValidator
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
