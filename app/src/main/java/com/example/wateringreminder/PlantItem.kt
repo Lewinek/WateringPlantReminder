@@ -17,11 +17,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.data_source.Plant
 import com.example.wateringreminder.ui.theme.LightBlue
 import com.example.wateringreminder.ui.theme.LightText
 
 @Composable
-fun PlantItem() {
+fun PlantItem(plant: Plant) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -47,7 +48,7 @@ fun PlantItem() {
                     .padding(top = 8.dp, end = 8.dp)
             ) {
                 Text(
-                    text = "Sinocrassula yunnanensis",
+                    text = plant.name,
                     color = Color.White,
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Bold
@@ -91,5 +92,5 @@ fun PlantItem() {
 @Preview
 @Composable
 fun PlantItemPreview() {
-    PlantItem()
+    PlantItem(Plant(name = "Sinocrassula yunnanensis"))
 }

@@ -1,9 +1,7 @@
 package com.example.wateringreminder.plantlist
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
@@ -12,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.example.wateringreminder.PlantItem
 import com.example.wateringreminder.PlantsViewModel
 import org.koin.androidx.compose.koinViewModel
 
@@ -29,20 +28,18 @@ fun PlantsScreen(
                 onClick = onNavigateToPlantCreator,
                 modifier = Modifier.padding(40.dp)
             ) {}
-        }
+        },
+        containerColor = Color.White
     ) {
-        LazyColumn() {
-            items(state.plants) { plants ->
-                Column(modifier = Modifier.background(color = Color.Blue)) {
-                    Text(
-                        text = plants.name,
-                        modifier = Modifier.padding(vertical = 8.dp),
-                        color = Color.White,
-                    )
-                    Divider(color = Color.LightGray)
-                }
+        LazyColumn(
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+            modifier = Modifier.padding(
+                top = 16.dp,
+            )
+        ) {
+            items(state.plants) { plant ->
+                PlantItem(plant)
             }
         }
-
     }
 }
