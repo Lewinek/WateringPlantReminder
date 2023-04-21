@@ -8,15 +8,15 @@ sealed class BottomBarScreen(
     val title: String,
     val icon: IconResource
 ) {
-    object Plants : BottomBarScreen(
-        route = "plants",
-        title = "Plants",
+    object Watering : BottomBarScreen(
+        route = "watering",
+        title = "Watering",
         icon = IconResource.fromDrawableResource(R.drawable.shower)
     )
 
-    object Articles : BottomBarScreen(
-        route = "articles",
-        title = "Articles",
+    object MyPlants : BottomBarScreen(
+        route = "myPlants",
+        title = "MyPlants",
         icon = IconResource.fromDrawableResource(R.drawable.potted_plant_fill)
     )
 }
