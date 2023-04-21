@@ -16,6 +16,7 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.wateringreminder.ui.theme.BottomNav
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -50,7 +51,7 @@ fun BottomBar(navController: NavHostController) {
 
     val bottomBarDestination = screens.any { it.route == currentDestination?.route }
     if (bottomBarDestination) {
-        NavigationBar {
+        NavigationBar(containerColor = BottomNav) {
             screens.forEach { screen ->
                 AddItem(
                     screen = screen,
@@ -69,9 +70,6 @@ fun RowScope.AddItem(
     navController: NavHostController
 ) {
     NavigationBarItem(
-        label = {
-            Text(text = screen.title)
-        },
         icon = {
             Icon(
                 painter = screen.icon.asPainterResource(),
