@@ -8,7 +8,7 @@ import com.example.data_source.Plant
 import com.example.data_source.PlantRepository
 import kotlinx.coroutines.launch
 
-class PlantsViewModel(
+class WateringViewModel(
     private val plantsRepository: PlantRepository
 ) : ViewModel() {
 

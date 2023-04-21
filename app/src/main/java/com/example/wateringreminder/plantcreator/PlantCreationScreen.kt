@@ -22,12 +22,13 @@ import com.example.wateringreminder.*
 import com.example.wateringreminder.R
 import com.example.wateringreminder.ui.theme.DarkText
 import com.example.wateringreminder.ui.theme.LightBlue
+import com.example.wateringreminder.watering.WateringUiState
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun PlantCreationScreen() {
     val viewModel: PlantCreationViewModel = koinViewModel()
-    val uiState: State<CreationUiState> = viewModel.uiState.collectAsState()
+    val uiState: State<WateringUiState> = viewModel.uiState.collectAsState()
     PlantCreationScreenContent(
         viewModel::updatePlantName,
         viewModel::updatePlantLocation,
@@ -43,7 +44,7 @@ fun PlantCreationScreenContent(
     updatePlantLocation: (String) -> Unit,
     updateSelectedDay: (String) -> Unit,
     createPlant: () -> Unit,
-    uiState: CreationUiState
+    uiState: WateringUiState
 ) {
     Column(
         modifier = Modifier
@@ -126,7 +127,7 @@ fun PlantCreationScreenContentPreview() {
         updatePlantLocation = {},
         updateSelectedDay = {},
         createPlant = { /*TODO*/ },
-        uiState = CreationUiState()
+        uiState = WateringUiState()
     )
 }
 

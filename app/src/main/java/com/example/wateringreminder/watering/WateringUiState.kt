@@ -1,6 +1,8 @@
-package com.example.wateringreminder
+package com.example.wateringreminder.watering
 
-data class CreationUiState(
+import com.example.wateringreminder.R
+
+data class WateringUiState(
     var showNameError: Boolean = false,
     var errorNameMsg: Int = R.string.empty_string,
     var plantName: String = "",

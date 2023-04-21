@@ -16,6 +16,8 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.wateringreminder.compose.navigation.BottomBarScreen
+import com.example.wateringreminder.compose.navigation.BottomNavGraph
 import com.example.wateringreminder.ui.theme.BorderTextField
 import com.example.wateringreminder.ui.theme.BottomNav
 import com.example.wateringreminder.ui.theme.BottomNavIcon
@@ -46,8 +48,8 @@ fun MainScreen() {
 @Composable
 fun BottomBar(navController: NavHostController) {
     val screens = listOf(
-        BottomBarScreen.Plants,
-        BottomBarScreen.Articles
+        BottomBarScreen.Watering,
+        BottomBarScreen.MyPlants
     )
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination

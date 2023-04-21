@@ -1,4 +1,4 @@
-package com.example.wateringreminder.plantlist
+package com.example.wateringreminder.watering
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.*
@@ -13,17 +13,17 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.wateringreminder.PlantItem
-import com.example.wateringreminder.PlantsViewModel
+import com.example.wateringreminder.WateringViewModel
 import com.example.wateringreminder.ui.theme.DarkText
 import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter", "UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun PlantsScreen(
+fun WateringScreen(
     onNavigateToPlantCreator: () -> Unit
 ) {
-    val viewModel: PlantsViewModel = koinViewModel()
+    val viewModel: WateringViewModel = koinViewModel()
     val state = viewModel.state.value
     Scaffold(
         floatingActionButton = {
