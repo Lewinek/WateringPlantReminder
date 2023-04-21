@@ -6,7 +6,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.material3.CardDefaults.cardColors
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -18,16 +18,22 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.data_source.Plant
+import com.example.wateringreminder.ui.theme.Grey
 import com.example.wateringreminder.ui.theme.LightBlue
 import com.example.wateringreminder.ui.theme.LightText
 
 @Composable
 fun PlantItem(plant: Plant) {
+
+    var isItWatered by remember {
+        mutableStateOf(false)
+    }
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp),
-        colors = cardColors(containerColor = LightBlue),
+        colors = cardColors(containerColor = if (isItWatered) LightBlue else LightText),
         shape = RoundedCornerShape(12.dp)
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
@@ -60,28 +66,33 @@ fun PlantItem(plant: Plant) {
                     Icon(
                         painter = painterResource(id = R.drawable.water_container),
                         contentDescription = "",
-                        tint = Color.White
+                        tint = if (isItWatered) Color.White else Grey
                     )
                     Text(
                         text = "~ 150 ml",
-                        color = Color.White,
+                        color = if (isItWatered) Color.White else Grey
                     )
                 }
             }
             Button(
-                onClick = {},
+                onClick = {
+                    isItWatered = !isItWatered
+                },
                 shape = CircleShape,
                 modifier = Modifier
                     .size(48.dp),
                 contentPadding = PaddingValues(1.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = LightText)
+                colors = ButtonDefaults.buttonColors(containerColor = if (isItWatered) LightText else Color.White)
             ) {
                 Icon(
-                    painter = painterResource(id = R.drawable.check),
+                    painter = if (isItWatered)
+                        painterResource(id = R.drawable.check)
+                    else
+                        painterResource(id = R.drawable.water_drop),
                     contentDescription = "",
                     modifier = Modifier
                         .size(24.dp),
-                    tint = Color.White
+                    tint = if (isItWatered) Color.White else LightBlue
                 )
             }
             Spacer(modifier = Modifier.width(16.dp))
