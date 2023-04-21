@@ -7,12 +7,20 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.data_source.Plant
 import com.example.data_source.PlantRepository
+import com.example.wateringreminder.CreationUiState
 import com.example.wateringreminder.EmptyTextFieldValidator
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class PlantCreationViewModel(
     private val plantRepository: PlantRepository
 ) : ViewModel() {
+
+    private val _uiState = MutableStateFlow(CreationUiState())
+    val uiState: StateFlow<CreationUiState> = _uiState.asStateFlow()
 
     private var plantName by mutableStateOf("")
     private var location by mutableStateOf("")
@@ -38,14 +46,20 @@ class PlantCreationViewModel(
         }
     }
 
-    private fun plantNameValid() {
+    private fun validatePlantName(plantName: String) {
         val namePlantValid = EmptyTextFieldValidator()
-        isPlantNameCorrect = !namePlantValid.validate(plantName.trim())
+        val isPlantNameCorrect = !namePlantValid.validate(plantName.trim())
+        _uiState.update { uiState ->
+            uiState.copy(
+                showNameError = isPlantNameCorrect,
+                errorNameMsg = namePlantValid.error
+            )
+        }
     }
 
-    fun updatePlantName(name: String) {
-        plantName = name
-        plantNameValid()
+    fun updatePlantName(plantName: String) {
+        _uiState.update { uiState -> uiState.copy(plantName = plantName) }
+        validatePlantName(plantName)
     }
 
     fun updatePlantLocation(location: String) {

@@ -25,7 +25,8 @@ import com.example.wateringreminder.ui.theme.DarkText
 fun LabelTextField(
     label: String,
     onValueChange: (String) -> Unit,
-    isError: Boolean
+    isError: Boolean,
+    errorMsg: String
 ) {
 
     var value by remember {
@@ -65,5 +66,5 @@ fun LabelTextField(
 @Preview
 @Composable
 fun LabelTextFieldPreview() {
-    LabelTextField("", onValueChange = {}, false)
+    LabelTextField("", onValueChange = {}, false, "")
 }

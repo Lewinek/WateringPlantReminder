@@ -8,12 +8,12 @@ sealed class BottomBarScreen(
     object Plants : BottomBarScreen(
         route = "plants",
         title = "Plants",
-        icon = IconResource.fromDrawableResource(R.drawable.potted_plant_fill)
+        icon = IconResource.fromDrawableResource(R.drawable.shower)
     )
 
     object Articles : BottomBarScreen(
         route = "articles",
         title = "Articles",
-        icon = IconResource.fromDrawableResource(R.drawable.article_fill)
+        icon = IconResource.fromDrawableResource(R.drawable.potted_plant_fill)
     )
 }

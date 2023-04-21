@@ -14,4 +14,5 @@
     <string name="plant_name_label">Name</string>
     <string name="plant_location_label">Location</string>
     <string name="water_days_label">Water Days</string>
+    <string name="empty_string"></string>
 </resources>

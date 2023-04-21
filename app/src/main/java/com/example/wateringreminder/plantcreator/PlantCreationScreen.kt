@@ -7,6 +7,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.Start
 import androidx.compose.ui.Modifier
@@ -24,13 +26,15 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun PlantCreationScreen() {
     val viewModel: PlantCreationViewModel = koinViewModel()
+    val uiState: State<CreationUiState> = viewModel.uiState.collectAsState()
     PlantCreationScreenContent(
         viewModel::updatePlantName,
         viewModel::updatePlantLocation,
         viewModel::updateIndex,
         viewModel::createPlant,
         viewModel.dayIndex.value,
-        viewModel.isPlantNameCorrect
+        viewModel.isPlantNameCorrect,
+        uiState.value
     )
 }
 
@@ -41,7 +45,8 @@ fun PlantCreationScreenContent(
     updateIndex: (Int) -> Unit,
     createPlant: () -> Unit,
     dayIndex: Int,
-    isPlantNameCorrect: Boolean
+    isPlantNameCorrect: Boolean,
+    uiState: CreationUiState
 ) {
     Column(
         modifier = Modifier
@@ -73,14 +78,16 @@ fun PlantCreationScreenContent(
         ) {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 LabelTextField(
-                    stringResource(R.string.plant_name_label),
+                    label = stringResource(R.string.plant_name_label),
                     onValueChange = { updatePlantName(it) },
-                    isPlantNameCorrect
+                    isError = uiState.showNameError,
+                    errorMsg = stringResource(id = uiState.errorNameMsg)
                 )
                 LabelTextField(
                     stringResource(R.string.plant_location_label),
                     onValueChange = { updatePlantLocation(it) },
-                    false
+                    false,
+                    ""
                 )
                 Box(
                     modifier = Modifier
@@ -123,7 +130,8 @@ fun PlantCreationScreenContentPreview() {
         updateIndex = {},
         createPlant = { /*TODO*/ },
         dayIndex = 1,
-        isPlantNameCorrect = true
+        isPlantNameCorrect = true,
+        uiState = CreationUiState()
     )
 }
 
