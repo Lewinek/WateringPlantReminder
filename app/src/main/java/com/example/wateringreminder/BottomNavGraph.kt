@@ -5,7 +5,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.wateringreminder.articlelist.MyPlantsScreen
-import com.example.wateringreminder.plantlist.WateringScreen
+import com.example.wateringreminder.watering.WateringScreen
 
 
 @Composable
