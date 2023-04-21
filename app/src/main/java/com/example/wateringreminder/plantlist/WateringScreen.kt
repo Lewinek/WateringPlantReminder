@@ -20,7 +20,7 @@ import org.koin.androidx.compose.koinViewModel
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter", "UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun PlantsScreen(
+fun WateringScreen(
     onNavigateToPlantCreator: () -> Unit
 ) {
     val viewModel: PlantsViewModel = koinViewModel()

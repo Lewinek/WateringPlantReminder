@@ -5,7 +5,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.wateringreminder.articlelist.MyPlantsScreen
-import com.example.wateringreminder.plantlist.PlantsScreen
+import com.example.wateringreminder.plantlist.WateringScreen
 
 
 @Composable
@@ -15,7 +15,7 @@ fun BottomNavGraph(navController: NavHostController) {
         startDestination = BottomBarScreen.Plants.route
     ) {
         composable(route = BottomBarScreen.Plants.route) {
-            PlantsScreen(
+            WateringScreen(
                 onNavigateToPlantCreator = { navController.navigate("plantCreator")}
             )
         }
