@@ -14,6 +14,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.wateringreminder.MyPlantItem
 import com.example.wateringreminder.R
 import com.example.wateringreminder.ui.theme.DarkText
 
@@ -33,7 +34,9 @@ fun MyPlantsScreen(onNavigateToPlantCreator: () -> Unit) {
                 Icon(painter = painterResource(id = R.drawable.add), contentDescription = "")
             }
         }, containerColor = Color.White
-    ) {}
+    ) {
+        MyPlantItem()
+    }
 }
 
 @Preview
