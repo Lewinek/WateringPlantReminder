@@ -23,7 +23,7 @@ ext {
             moshi            : '1.11.0',
             moshiConverter   : '2.4.0',
             room             : '2.6.0-alpha01',
-            material3        : '1.0.1',
+            material3        : '1.1.0-rc01',
     ]
 
     androidXDependencies = [
