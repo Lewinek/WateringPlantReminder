@@ -15,6 +15,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.data_source.Plant
 import com.example.wateringreminder.MyPlantItem
 import com.example.wateringreminder.R
 import com.example.wateringreminder.ui.theme.DarkText
@@ -28,14 +29,16 @@ fun MyPlantsScreen(onNavigateToPlantCreator: () -> Unit) {
     val uiState: State<MyPlantsUiState> = viewModel.uiState.collectAsState()
     MyPlantsScreenContent(
         onNavigateToPlantCreator,
-        uiState = uiState.value
+        uiState = uiState.value,
+        viewModel::removePlant
     )
 }
 
 @Composable
 fun MyPlantsScreenContent(
     onNavigateToPlantCreator: () -> Unit,
-    uiState: MyPlantsUiState
+    uiState: MyPlantsUiState,
+    removePlant: (Plant) -> Unit,
 ) {
     Scaffold(
         floatingActionButton = {
@@ -57,6 +60,7 @@ fun MyPlantsScreenContent(
                     val currentItem by rememberUpdatedState(item)
                     val dismissState = rememberDismissState(
                         confirmValueChange = {
+                            removePlant(currentItem)
                             true
                         }
                     )
@@ -64,7 +68,7 @@ fun MyPlantsScreenContent(
                         state = dismissState,
                         background = {},
                         dismissContent = {
-                            MyPlantItem()
+                            MyPlantItem(item)
                         }
                     )
                 }

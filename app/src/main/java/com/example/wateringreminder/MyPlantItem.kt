@@ -15,13 +15,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.data_source.Plant
 import com.example.wateringreminder.ui.theme.LightBlue
 
 @Composable
-fun MyPlantItem() {
+fun MyPlantItem(plant: Plant) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -52,7 +52,7 @@ fun MyPlantItem() {
                         .padding(top = 8.dp)
                 ) {
                     Text(
-                        "Calathea Orbifolia",
+                        text = plant.name,
                         color = Color.White,
                         fontSize = 20.sp,
                         fontWeight = FontWeight.Bold
@@ -72,8 +72,8 @@ fun MyPlantItem() {
                     )
                 }
             }
-            LazyRow(){
-                items(1){
+            LazyRow() {
+                items(1) {
                     DetailLabel(label = "WATER", value = "1/week", R.drawable.water_drop)
                     DetailLabel(label = "TEMPERATURE", value = "15-24C", R.drawable.water_drop)
                     DetailLabel(label = "DIFFICULTY", value = "easy", R.drawable.water_drop)
@@ -83,8 +83,8 @@ fun MyPlantItem() {
     }
 }
 
-@Preview
-@Composable
-fun MyPlantPreview() {
-    MyPlantItem()
-}
+//@Preview
+//@Composable
+//fun MyPlantPreview() {
+////    MyPlantItem(plant = Plan)
+//}

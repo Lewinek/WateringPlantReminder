@@ -6,6 +6,7 @@ import com.example.data_source.local.PlantDao
 interface PlantRepository {
     suspend fun insertPlant(plant: Plant)
     suspend fun getPlants(): List<Plant>
+    suspend fun removePlant(plant: Plant)
 }
 
 class PlantRepositoryImpl(
@@ -17,5 +18,9 @@ class PlantRepositoryImpl(
 
     override suspend fun getPlants(): List<Plant> {
         return plantDao.getPlants().map { it.toPlant() }
+    }
+
+    override suspend fun removePlant(plant: Plant) {
+        plantDao.removePlant(plant = PlantCached(plant))
     }
 }
