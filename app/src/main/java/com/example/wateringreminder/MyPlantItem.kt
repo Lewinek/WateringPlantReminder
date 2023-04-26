@@ -22,7 +22,6 @@ import com.example.wateringreminder.ui.theme.LightBlue
 
 @Composable
 fun MyPlantItem() {
-    Text("My Plants")
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -74,7 +73,7 @@ fun MyPlantItem() {
                 }
             }
             LazyRow(){
-                items(2){
+                items(1){
                     DetailLabel(label = "WATER", value = "1/week", R.drawable.water_drop)
                     DetailLabel(label = "TEMPERATURE", value = "15-24C", R.drawable.water_drop)
                     DetailLabel(label = "DIFFICULTY", value = "easy", R.drawable.water_drop)
