@@ -9,5 +9,6 @@ data class WateringUiState(
     var location: String = "",
     var dayIndex: Int = -1,
     val daysIntervalForSelection: List<String> = listOf("mon", "fri", "sun"),
-    var selectedDay: String? = null
+    var selectedDay: String? = null,
+    val goToMyPlantsScreen: Boolean = false
 )

@@ -1,5 +1,6 @@
 package com.example.wateringreminder.plantcreator
 
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -33,8 +34,13 @@ class PlantCreationViewModel(
 
 
     fun createPlant() {
-        if (isPlantNameCorrect) {
+        if (!_uiState.value.showNameError) {
             viewModelScope.launch {
+                _uiState.update { uiState ->
+                    uiState.copy(
+                        goToMyPlantsScreen = true
+                    )
+                }
                 plantRepository.insertPlant(
                     Plant(
                         name = plantName,

@@ -12,7 +12,7 @@ fun NavGraphBuilder.plantNavGraph(navController: NavController) {
         route = PlantGraph.PLANT_ROUTE
     ){
         composable(PlantGraph.PLANT_SCREEN){
-            PlantCreationScreen()
+            PlantCreationScreen(onNavigateToMyPlants = { navController.navigate("myPlants") })
         }
     }
 }

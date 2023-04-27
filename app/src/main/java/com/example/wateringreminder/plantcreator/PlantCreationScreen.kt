@@ -1,5 +1,6 @@
 package com.example.wateringreminder.plantcreator
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
@@ -26,9 +27,14 @@ import com.example.wateringreminder.watering.WateringUiState
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun PlantCreationScreen() {
+fun PlantCreationScreen(onNavigateToMyPlants: () -> Unit) {
     val viewModel: PlantCreationViewModel = koinViewModel()
     val uiState: State<WateringUiState> = viewModel.uiState.collectAsState()
+
+    if(uiState.value.goToMyPlantsScreen) {
+        onNavigateToMyPlants
+    }
+
     PlantCreationScreenContent(
         viewModel::updatePlantName,
         viewModel::updatePlantLocation,
@@ -113,7 +119,10 @@ fun PlantCreationScreenContent(
                         )
                     }
                 }
-                AddButton(modifier = Modifier.padding(16.dp), onClick = { createPlant() })
+                AddButton(
+                    modifier = Modifier.padding(16.dp),
+                    onClick = { createPlant()}
+                )
             }
         }
     }
@@ -134,5 +143,5 @@ fun PlantCreationScreenContentPreview() {
 @Preview
 @Composable
 fun PlantCreationScreenPreview() {
-    PlantCreationScreen()
+    PlantCreationScreen({})
 }
