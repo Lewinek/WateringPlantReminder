@@ -56,6 +56,7 @@ fun MyPlantsScreenContent(
         LazyColumn() {
             items(
                 items = uiState.plants,
+                key = {it.id!!},
                 itemContent = { item ->
                     val currentItem by rememberUpdatedState(item)
                     val dismissState = rememberDismissState(

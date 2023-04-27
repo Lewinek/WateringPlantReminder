@@ -23,7 +23,9 @@ class MyPlantsViewModel(
 
     fun getPlants() {
         viewModelScope.launch {
-            _uiState.update { uiState -> uiState.copy(plants = repository.getPlants()) }
+            repository.getPlants().collect {
+                _uiState.update { uiState -> uiState.copy(plants = it) }
+            }
         }
     }
 
