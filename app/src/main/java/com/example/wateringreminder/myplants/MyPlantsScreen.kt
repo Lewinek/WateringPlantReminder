@@ -3,6 +3,7 @@
 package com.example.wateringreminder.myplants
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -34,6 +35,7 @@ fun MyPlantsScreen(onNavigateToPlantCreator: () -> Unit) {
     )
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun MyPlantsScreenContent(
     onNavigateToPlantCreator: () -> Unit,
@@ -67,6 +69,7 @@ fun MyPlantsScreenContent(
                     )
                     SwipeToDismiss(
                         state = dismissState,
+                        modifier = Modifier.animateItemPlacement(),
                         background = {},
                         dismissContent = {
                             MyPlantItem(item)
