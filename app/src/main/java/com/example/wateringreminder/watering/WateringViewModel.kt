@@ -1,4 +1,4 @@
-package com.example.wateringreminder
+package com.example.wateringreminder.watering
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
@@ -31,7 +31,9 @@ class WateringViewModel(
 
     private fun getPlants() {
         viewModelScope.launch {
-            _state.value = state.value.copy(plants = plantsRepository.getPlants())
+            plantsRepository.getPlants().collect {
+                _state.value = state.value.copy(plants = it)
+            }
         }
     }
 }

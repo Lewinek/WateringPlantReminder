@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 interface PlantDao {
 
     @Query("SELECT * FROM `plant`")
-    suspend fun getPlants(): List<PlantCached>
+    fun getPlants(): Flow<List<PlantCached>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertPlant(vararg plantCached: PlantCached)

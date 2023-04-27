@@ -2,10 +2,12 @@ package com.example.data_source
 
 import com.example.data_source.local.PlantCached
 import com.example.data_source.local.PlantDao
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 interface PlantRepository {
     suspend fun insertPlant(plant: Plant)
-    suspend fun getPlants(): List<Plant>
+    fun getPlants(): Flow<List<Plant>>
     suspend fun removePlant(plant: Plant)
 }
 
@@ -16,8 +18,8 @@ class PlantRepositoryImpl(
         plantDao.insertPlant(PlantCached(plant))
     }
 
-    override suspend fun getPlants(): List<Plant> {
-        return plantDao.getPlants().map { it.toPlant() }
+    override fun getPlants(): Flow<List<Plant>> {
+        return plantDao.getPlants().map { it -> it.map { it.toPlant() } }
     }
 
     override suspend fun removePlant(plant: Plant) {
