@@ -10,9 +10,11 @@ fun NavGraphBuilder.plantNavGraph(navController: NavController) {
     navigation(
         startDestination = PlantGraph.PLANT_SCREEN,
         route = PlantGraph.PLANT_ROUTE
-    ){
-        composable(PlantGraph.PLANT_SCREEN){
-            PlantCreationScreen(onNavigateToMyPlants = { navController.navigate("myPlants") })
+    ) {
+        composable(PlantGraph.PLANT_SCREEN) {
+            PlantCreationScreen(onNavigateToMyPlants = {
+                navController.popBackStack()
+            })
         }
     }
 }

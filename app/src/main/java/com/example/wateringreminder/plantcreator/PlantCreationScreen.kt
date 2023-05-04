@@ -1,6 +1,5 @@
 package com.example.wateringreminder.plantcreator
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
@@ -9,31 +8,43 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.Start
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.wateringreminder.*
+import androidx.lifecycle.flowWithLifecycle
+import com.example.wateringreminder.AddButton
+import com.example.wateringreminder.DayButton
+import com.example.wateringreminder.LabelTextField
 import com.example.wateringreminder.R
 import com.example.wateringreminder.ui.theme.DarkText
 import com.example.wateringreminder.ui.theme.LightBlue
 import com.example.wateringreminder.watering.WateringUiState
 import org.koin.androidx.compose.koinViewModel
 
+
 @Composable
 fun PlantCreationScreen(onNavigateToMyPlants: () -> Unit) {
     val viewModel: PlantCreationViewModel = koinViewModel()
     val uiState: State<WateringUiState> = viewModel.uiState.collectAsState()
+    val lifecycle = LocalLifecycleOwner.current.lifecycle
 
-    if(uiState.value.goToMyPlantsScreen) {
-        onNavigateToMyPlants
-    }
+    LaunchedEffect(key1 = Unit, block = {
+        viewModel.events.flowWithLifecycle(lifecycle).collect() {
+            when (it) {
+                UiEvents.FinishScreen -> onNavigateToMyPlants()
+                UiEvents.ShowSnackbar -> {}
+            }
+        }
+    })
 
     PlantCreationScreenContent(
         viewModel::updatePlantName,
@@ -121,7 +132,7 @@ fun PlantCreationScreenContent(
                 }
                 AddButton(
                     modifier = Modifier.padding(16.dp),
-                    onClick = { createPlant()}
+                    onClick = { createPlant() }
                 )
             }
         }
@@ -144,4 +155,9 @@ fun PlantCreationScreenContentPreview() {
 @Composable
 fun PlantCreationScreenPreview() {
     PlantCreationScreen({})
+}
+
+sealed interface UiEvents {
+    object ShowSnackbar : UiEvents
+    object FinishScreen : UiEvents
 }
