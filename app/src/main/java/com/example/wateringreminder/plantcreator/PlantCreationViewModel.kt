@@ -7,12 +7,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.data_source.Plant
 import com.example.data_source.PlantRepository
-import com.example.wateringreminder.watering.WateringUiState
 import com.example.wateringreminder.EmptyTextFieldValidator
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
+import com.example.wateringreminder.watering.WateringUiState
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 class PlantCreationViewModel(
@@ -30,10 +27,10 @@ class PlantCreationViewModel(
         get() {
             return if (dayIndex.value == -1) null else dayIndex.value
         }
-
+    val events = MutableSharedFlow<UiEvents>()
 
     fun createPlant() {
-        if (isPlantNameCorrect) {
+        if (!_uiState.value.showNameError) {
             viewModelScope.launch {
                 plantRepository.insertPlant(
                     Plant(

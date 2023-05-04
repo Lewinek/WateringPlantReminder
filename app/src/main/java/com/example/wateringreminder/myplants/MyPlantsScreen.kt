@@ -4,18 +4,22 @@ package com.example.wateringreminder.myplants
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.data_source.Plant
 import com.example.wateringreminder.MyPlantItem
 import com.example.wateringreminder.R
@@ -42,23 +46,38 @@ fun MyPlantsScreenContent(
     uiState: MyPlantsUiState,
     removePlant: (Plant) -> Unit,
 ) {
-    Scaffold(
-        floatingActionButton = {
-            FloatingActionButton(
-                onClick = onNavigateToPlantCreator,
+    Column(modifier = Modifier.background(color = Color.White)) {
+        Row() {
+            Text(
+                text = "My Plants",
                 modifier = Modifier
-                    .padding(40.dp)
-                    .clip(RoundedCornerShape(12.dp)),
-                containerColor = DarkText
+                    .padding(16.dp),
+                color = DarkText,
+                fontSize = 32.sp,
+                fontWeight = FontWeight.Bold
+            )
+            Spacer(modifier = Modifier.weight(1f))
+            Button(
+                onClick = onNavigateToPlantCreator,
+                colors = ButtonDefaults.buttonColors(containerColor = DarkText),
+                modifier = Modifier.padding(16.dp),
             ) {
-                Icon(painter = painterResource(id = R.drawable.add), contentDescription = "")
+                Icon(
+                    painter = painterResource(id = R.drawable.add),
+                    contentDescription = "",
+                    tint = Color.White
+                )
+                Text(
+                    text = "Plant",
+                    color = Color.White,
+                    fontWeight = FontWeight.Bold
+                )
             }
-        }, containerColor = Color.White
-    ) {
+        }
         LazyColumn() {
             items(
                 items = uiState.plants,
-                key = {it.id!!},
+                key = { it.id!! },
                 itemContent = { item ->
                     val currentItem by rememberUpdatedState(item)
                     val dismissState = rememberDismissState(
