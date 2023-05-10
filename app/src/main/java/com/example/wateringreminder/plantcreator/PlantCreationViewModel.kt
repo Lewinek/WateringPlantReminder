@@ -11,6 +11,7 @@ import com.example.wateringreminder.EmptyTextFieldValidator
 import com.example.wateringreminder.watering.WateringUiState
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import java.time.LocalDate
 
 class PlantCreationViewModel(
     private val plantRepository: PlantRepository
@@ -36,11 +37,19 @@ class PlantCreationViewModel(
                     Plant(
                         name = plantName,
                         location = location,
+                        wateringDate = numberOfDaysToWatering?.let { getWateringDay(it) },
                         numberOfDaysToWatering = numberOfDaysToWatering
                     )
                 )
             }
         }
+    }
+
+
+    private fun getWateringDay(numberOfDaysToWatering: Int) : String{
+        val current = LocalDate.now()
+        current.plusDays(numberOfDaysToWatering.toLong())
+        return current.toString()
     }
 
     private fun validatePlantName(plantName: String) {
