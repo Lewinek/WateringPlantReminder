@@ -36,6 +36,12 @@ class WateringViewModel(
             }
         }
     }
+
+    private fun getPlantsThatNeedWatering(){
+        viewModelScope.launch {
+
+        }
+    }
 }
 
 data class PlantsState(
