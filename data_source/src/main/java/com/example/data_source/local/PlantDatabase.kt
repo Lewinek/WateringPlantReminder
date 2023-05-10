@@ -5,7 +5,7 @@ import androidx.room.RoomDatabase
 
 @Database(
     entities = [PlantCached::class],
-    version = 6
+    version = 7
 )
 abstract class PlantDatabase : RoomDatabase() {
     abstract fun plantDao(): PlantDao
