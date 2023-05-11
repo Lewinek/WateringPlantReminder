@@ -28,7 +28,8 @@ class PlantCreationViewModel(
         get() {
             return if (dayIndex.value == -1) null else dayIndex.value
         }
-    val events = MutableSharedFlow<UiEvents>()
+    private val _events = MutableSharedFlow<UiEvents>()
+    val events =  _events.asSharedFlow()
 
     fun createPlant() {
         if (!_uiState.value.showNameError) {
@@ -41,6 +42,7 @@ class PlantCreationViewModel(
                         numberOfDaysToWatering = numberOfDaysToWatering
                     )
                 )
+                _events.emit(UiEvents.FinishScreen)
             }
         }
     }
