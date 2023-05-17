@@ -4,9 +4,11 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 
 @Database(
-    entities = [PlantCached::class],
-    version = 7
+    entities = [PlantCached::class, Event::class],
+    version = 8
 )
 abstract class PlantDatabase : RoomDatabase() {
     abstract fun plantDao(): PlantDao
+
+    abstract fun eventDao(): EventDao
 }
