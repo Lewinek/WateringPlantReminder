@@ -9,13 +9,13 @@ interface PlantRepository {
     suspend fun insertPlant(plant: Plant): Long
     fun getPlants(): Flow<List<Plant>>
     suspend fun removePlant(plant: Plant)
-    suspend fun getPlantById(id: Int): Plant
+    suspend fun getPlantById(id: Int): PlantCached
 }
 
 class PlantRepositoryImpl(
     private val plantDao: PlantDao
 ) : PlantRepository {
-    override suspend fun insertPlant(plant: Plant): Long {
+    override suspend fun insertPlant(plant: Plant) : Long{
         return plantDao.insertPlant(PlantCached(plant))
     }
 
@@ -27,7 +27,7 @@ class PlantRepositoryImpl(
         plantDao.removePlant(plant = PlantCached(plant))
     }
 
-    override suspend fun getPlantById(id: Int): Plant {
-        return plantDao.getPlantById(id).toPlant()
+    override suspend fun getPlantById(id: Int): PlantCached {
+        return plantDao.getPlantById(id)
     }
 }
