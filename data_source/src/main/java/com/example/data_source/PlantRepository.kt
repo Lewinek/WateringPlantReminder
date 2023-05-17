@@ -6,16 +6,17 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 interface PlantRepository {
-    suspend fun insertPlant(plant: Plant)
+    suspend fun insertPlant(plant: Plant): Long
     fun getPlants(): Flow<List<Plant>>
     suspend fun removePlant(plant: Plant)
+    suspend fun getPlantById(id: Int): Plant
 }
 
 class PlantRepositoryImpl(
     private val plantDao: PlantDao
 ) : PlantRepository {
-    override suspend fun insertPlant(plant: Plant) {
-        plantDao.insertPlant(PlantCached(plant))
+    override suspend fun insertPlant(plant: Plant): Long {
+        return plantDao.insertPlant(PlantCached(plant))
     }
 
     override fun getPlants(): Flow<List<Plant>> {
@@ -24,5 +25,9 @@ class PlantRepositoryImpl(
 
     override suspend fun removePlant(plant: Plant) {
         plantDao.removePlant(plant = PlantCached(plant))
+    }
+
+    override suspend fun getPlantById(id: Int): Plant {
+        return plantDao.getPlantById(id).toPlant()
     }
 }
