@@ -15,4 +15,5 @@ val dataSourceModule = module {
     single { get<PlantDatabase>().plantDao() }
 
     factory<PlantRepository> { PlantRepositoryImpl(get()) }
+    factory<EventRepository> { EventRepositoryImpl(get()) }
 }

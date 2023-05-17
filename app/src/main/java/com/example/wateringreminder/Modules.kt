@@ -8,6 +8,6 @@ import org.koin.dsl.module
 
 val appModule = module {
     viewModel { WateringViewModel(get()) }
-    viewModel { PlantCreationViewModel(get()) }
+    viewModel { PlantCreationViewModel(get(), get()) }
     viewModel { MyPlantsViewModel(get()) }
 }
