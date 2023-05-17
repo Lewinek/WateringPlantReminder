@@ -10,20 +10,14 @@ data class PlantCached(
     @PrimaryKey(autoGenerate = true)
     val id: Int? = null,
     val name: String,
-    val wateringDate: String? = null,
-    val numberOfDaysToWatering: Int? = null
 ) {
     constructor(plant: Plant) : this(
         plant.id,
         plant.name,
-        plant.wateringDate,
-        plant.numberOfDaysToWatering
     )
 
     fun toPlant() = Plant(
         id = id,
         name = name,
-        wateringDate = wateringDate,
-        numberOfDaysToWatering = numberOfDaysToWatering
     )
 }
