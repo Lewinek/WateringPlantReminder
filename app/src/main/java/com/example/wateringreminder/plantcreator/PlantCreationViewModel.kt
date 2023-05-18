@@ -5,8 +5,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.data_source.EventRepository
 import com.example.data_source.Plant
 import com.example.data_source.PlantRepository
+import com.example.data_source.local.Event
+import com.example.data_source.local.PlantCached
 import com.example.wateringreminder.EmptyTextFieldValidator
 import com.example.wateringreminder.watering.WateringUiState
 import kotlinx.coroutines.flow.*
@@ -14,7 +17,8 @@ import kotlinx.coroutines.launch
 import java.time.LocalDate
 
 class PlantCreationViewModel(
-    private val plantRepository: PlantRepository
+    private val plantRepository: PlantRepository,
+    private val eventRepository: EventRepository
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(WateringUiState())
@@ -29,29 +33,35 @@ class PlantCreationViewModel(
             return if (dayIndex.value == -1) null else dayIndex.value
         }
     private val _events = MutableSharedFlow<UiEvents>()
-    val events =  _events.asSharedFlow()
+    val events = _events.asSharedFlow()
+
 
     fun createPlant() {
         if (!_uiState.value.showNameError) {
+
             viewModelScope.launch {
-                plantRepository.insertPlant(
+                val plantId = plantRepository.insertPlant(
                     Plant(
-                        name = plantName,
-                        location = location,
-                        wateringDate = numberOfDaysToWatering?.let { getWateringDay(it) },
-                        numberOfDaysToWatering = numberOfDaysToWatering
+                        name = uiState.value.plantName,
+                        location = "location"
                     )
                 )
+
+                val plant = plantRepository.getPlantById(plantId.toInt())
+
+                eventRepository.insertEvent(createEvent(plant))
+
                 _events.emit(UiEvents.FinishScreen)
             }
         }
     }
 
-
-    private fun getWateringDay(numberOfDaysToWatering: Int) : String{
-        val current = LocalDate.now()
-        current.plusDays(numberOfDaysToWatering.toLong())
-        return current.toString()
+    private fun createEvent(plant: PlantCached): Event {
+        return Event(
+            startDate = LocalDate.now(),
+            recurringInterval = numberOfDaysToWatering ?: 1,
+            plantCached = plant,
+        )
     }
 
     private fun validatePlantName(plantName: String) {
