@@ -10,14 +10,17 @@ data class PlantCached(
     @PrimaryKey(autoGenerate = true)
     val id: Int? = null,
     val name: String,
+    val location: String? = null
 ) {
     constructor(plant: Plant) : this(
         plant.id,
         plant.name,
+        plant.location
     )
 
     fun toPlant() = Plant(
         id = id,
         name = name,
+        location = location
     )
 }
