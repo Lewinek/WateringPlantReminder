@@ -1,4 +1,4 @@
-package com.example.wateringreminder
+package com.example.wateringreminder.compose
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
@@ -17,17 +17,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.data_source.Plant
+import com.example.data_source.local.PlantCached
+import com.example.wateringreminder.R
 import com.example.wateringreminder.ui.theme.Grey
 import com.example.wateringreminder.ui.theme.LightBlue
 import com.example.wateringreminder.ui.theme.LightText
 
 @Composable
-fun PlantItem(plant: Plant) {
-
-    var isItWatered by remember {
-        mutableStateOf(false)
-    }
+fun PlantItem(plant: PlantCached, isItWatered: Boolean, changeWaterState: () -> Unit) {
 
     Card(
         modifier = Modifier
@@ -76,7 +73,7 @@ fun PlantItem(plant: Plant) {
             }
             Button(
                 onClick = {
-                    isItWatered = !isItWatered
+                    changeWaterState()
                 },
                 shape = CircleShape,
                 modifier = Modifier
@@ -103,5 +100,5 @@ fun PlantItem(plant: Plant) {
 @Preview
 @Composable
 fun PlantItemPreview() {
-    PlantItem(Plant(name = "Sinocrassula yunnanensis"))
+    PlantItem(PlantCached(name = "Sinocrassula yunnanensis"), true, {})
 }
