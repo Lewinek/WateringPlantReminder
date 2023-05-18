@@ -11,7 +11,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.wateringreminder.PlantItem
+import com.example.wateringreminder.compose.PlantItem
 import com.example.wateringreminder.ui.theme.DarkText
 import org.koin.androidx.compose.koinViewModel
 
@@ -32,10 +32,23 @@ fun WateringScreen() {
         LazyColumn(
             verticalArrangement = Arrangement.spacedBy(8.dp),
             contentPadding = PaddingValues(bottom = 8.dp),
-            modifier = Modifier.background(color = Color.White).fillMaxHeight()
+            modifier = Modifier
+                .background(color = Color.White)
+                .fillMaxSize()
         ) {
-            items(state.plants) { plant ->
-                PlantItem(plant)
+            state.plants?.let {
+                it.toList().forEach { (date, plant) ->
+                    item {
+                        Text(text = date, Modifier.background(color = Color.Red))
+                    }
+                    items(plant) {
+                        PlantItem(
+                            plant = it.plant,
+                            isItWatered = it.isWatered,
+                            changeWaterState = { viewModel.changeWaterState(it) }
+                        )
+                    }
+                }
             }
         }
     }

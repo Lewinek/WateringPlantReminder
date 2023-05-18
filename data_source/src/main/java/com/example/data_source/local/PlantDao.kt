@@ -10,7 +10,7 @@ interface PlantDao {
     fun getPlants(): Flow<List<PlantCached>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insertPlant( plantCached: PlantCached) : Long
+    suspend fun insertPlant(plantCached: PlantCached): Long
 
     @Delete
     suspend fun removePlant(plant: PlantCached)

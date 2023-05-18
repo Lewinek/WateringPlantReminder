@@ -6,7 +6,7 @@ import androidx.room.TypeConverters
 
 @Database(
     entities = [PlantCached::class, Event::class],
-    version = 9
+    version = 11
 )
 @TypeConverters(LocalDateConverter::class)
 abstract class PlantDatabase : RoomDatabase() {

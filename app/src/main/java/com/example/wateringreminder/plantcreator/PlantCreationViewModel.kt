@@ -46,11 +46,8 @@ class PlantCreationViewModel(
                         location = "location"
                     )
                 )
-
                 val plant = plantRepository.getPlantById(plantId.toInt())
-
                 eventRepository.insertEvent(createEvent(plant))
-
                 _events.emit(UiEvents.FinishScreen)
             }
         }
@@ -61,6 +58,7 @@ class PlantCreationViewModel(
             startDate = LocalDate.now(),
             recurringInterval = numberOfDaysToWatering ?: 1,
             plantCached = plant,
+            lastWaterDay = LocalDate.now().minusDays(1)
         )
     }
 
