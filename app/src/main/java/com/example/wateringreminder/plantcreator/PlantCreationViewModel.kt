@@ -58,7 +58,8 @@ class PlantCreationViewModel(
             startDate = LocalDate.now(),
             recurringInterval = numberOfDaysToWatering ?: 1,
             plantCached = plant,
-            lastWaterDay = LocalDate.now().minusDays(1)
+            lastWaterDay = LocalDate.now().minusDays(1),
+            isWatered = false
         )
     }
 

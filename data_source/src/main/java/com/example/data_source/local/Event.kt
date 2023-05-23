@@ -9,6 +9,7 @@ data class Event(
     val id: Int? = null,
     val startDate: LocalDate,
     val lastWaterDay: LocalDate,
+    val isWatered: Boolean,
     val recurringInterval: Int,
     @Embedded(prefix = "plant")
     val plantCached: PlantCached,
