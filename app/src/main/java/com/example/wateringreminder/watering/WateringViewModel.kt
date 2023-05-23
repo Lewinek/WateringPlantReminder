@@ -1,12 +1,10 @@
 package com.example.wateringreminder.watering
 
-import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.data_source.EventRepository
-import com.example.data_source.local.Event
 import com.example.data_source.local.PlantCached
 import kotlinx.coroutines.launch
 import java.time.LocalDate
@@ -32,10 +30,16 @@ class WateringViewModel(
 
     fun changeWaterState(notification: WaterThePlantNotification) {
         viewModelScope.launch {
-            val event = eventRepository.getEvents().findLast { notification.eventId == it.id }
-            val newEvent = event?.copy(lastWaterDay = LocalDate.now())
-            newEvent?.let { eventRepository.updateEvent(it) }
-            getPlantsThatNeedWatering()
+            if (notification.date.isEqual(LocalDate.now())){
+                val event = eventRepository.getEvents().findLast { notification.eventId == it.id }
+                val newEvent = event?.isWatered?.let {
+                    event?.copy(
+                        isWatered = !it
+                    )
+                }
+                newEvent?.let { eventRepository.updateEvent(it) }
+                getPlantsThatNeedWatering()
+            }
         }
     }
 }
@@ -54,8 +58,8 @@ class GetPlantNotificationUseCase(private val repository: EventRepository) {
         return repository.getEvents().flatMap { event ->
             val repeatedEvents = (1..repeatedDay).map { i ->
                 event.copy(
-                    startDate = event.startDate.plusDays(numbersOfDay.toLong() * i),
-                    lastWaterDay = event.lastWaterDay.plusDays(1)
+                    wateringDate = event.wateringDate.plusDays(numbersOfDay.toLong() * i),
+                    isWatered = false
                 )
             }
             listOf(event) + repeatedEvents
@@ -63,8 +67,8 @@ class GetPlantNotificationUseCase(private val repository: EventRepository) {
             WaterThePlantNotification(
                 eventId = it.id!!,
                 plant = it.plantCached,
-                date = it.startDate,
-                isWatered = it.lastWaterDay.isEqual(LocalDate.now())
+                date = it.wateringDate,
+                isWatered = it.isWatered
             )
         }
     }
@@ -74,5 +78,5 @@ data class WaterThePlantNotification(
     val eventId: Int,
     val plant: PlantCached,
     val date: LocalDate,
-    val isWatered: Boolean
+    val isWatered: Boolean,
 )
