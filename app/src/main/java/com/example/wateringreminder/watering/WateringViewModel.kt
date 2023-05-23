@@ -32,11 +32,7 @@ class WateringViewModel(
         viewModelScope.launch {
             if (notification.date.isEqual(LocalDate.now())){
                 val event = eventRepository.getEvents().findLast { notification.eventId == it.id }
-                val newEvent = event?.isWatered?.let {
-                    event?.copy(
-                        isWatered = !it
-                    )
-                }
+                val newEvent = event?.copy(isWatered = !event.isWatered)
                 newEvent?.let { eventRepository.updateEvent(it) }
                 getPlantsThatNeedWatering()
             }
