@@ -1,5 +1,6 @@
 package com.example.wateringreminder.watering
 
+import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -50,15 +51,15 @@ class GetPlantNotificationUseCase(private val repository: EventRepository) {
     val repeatedDay = range / numbersOfDay
 
     suspend operator fun invoke(): List<WaterThePlantNotification> {
-        val eventList = repository.getEvents()
-        val repeatedList = mutableListOf<Event>()
-        eventList.forEach {
-            repeatedList.add(it)
-            for (i in 1..repeatedDay) {
-                repeatedList.add(it.copy(startDate = it.startDate.plusDays((numbersOfDay * i).toLong())))
+        return repository.getEvents().flatMap { event ->
+            val repeatedEvents = (1..repeatedDay).map { i ->
+                event.copy(
+                    startDate = event.startDate.plusDays(numbersOfDay.toLong() * i),
+                    lastWaterDay = event.lastWaterDay.plusDays(1)
+                )
             }
-        }
-        return repeatedList.map {
+            listOf(event) + repeatedEvents
+        }.map {
             WaterThePlantNotification(
                 eventId = it.id!!,
                 plant = it.plantCached,
