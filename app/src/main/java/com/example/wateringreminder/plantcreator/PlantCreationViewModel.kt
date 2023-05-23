@@ -55,10 +55,10 @@ class PlantCreationViewModel(
 
     private fun createEvent(plant: PlantCached): Event {
         return Event(
-            startDate = LocalDate.now(),
+            wateringDate = LocalDate.now(),
             recurringInterval = numberOfDaysToWatering ?: 1,
             plantCached = plant,
-            lastWaterDay = LocalDate.now().minusDays(1)
+            isWatered = false
         )
     }
 

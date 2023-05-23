@@ -5,7 +5,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.data_source.EventRepository
-import com.example.data_source.local.Event
 import com.example.data_source.local.PlantCached
 import kotlinx.coroutines.launch
 import java.time.LocalDate
@@ -31,10 +30,12 @@ class WateringViewModel(
 
     fun changeWaterState(notification: WaterThePlantNotification) {
         viewModelScope.launch {
-            val event = eventRepository.getEvents().findLast { notification.eventId == it.id }
-            val newEvent = event?.copy(lastWaterDay = LocalDate.now())
-            newEvent?.let { eventRepository.updateEvent(it) }
-            getPlantsThatNeedWatering()
+            if (notification.date.isEqual(LocalDate.now())){
+                val event = eventRepository.getEvents().findLast { notification.eventId == it.id }
+                val newEvent = event?.copy(isWatered = !event.isWatered)
+                newEvent?.let { eventRepository.updateEvent(it) }
+                getPlantsThatNeedWatering()
+            }
         }
     }
 }
@@ -50,20 +51,20 @@ class GetPlantNotificationUseCase(private val repository: EventRepository) {
     val repeatedDay = range / numbersOfDay
 
     suspend operator fun invoke(): List<WaterThePlantNotification> {
-        val eventList = repository.getEvents()
-        val repeatedList = mutableListOf<Event>()
-        eventList.forEach {
-            repeatedList.add(it)
-            for (i in 1..repeatedDay) {
-                repeatedList.add(it.copy(startDate = it.startDate.plusDays((numbersOfDay * i).toLong())))
+        return repository.getEvents().flatMap { event ->
+            val repeatedEvents = (1..repeatedDay).map { i ->
+                event.copy(
+                    wateringDate = event.wateringDate.plusDays(numbersOfDay.toLong() * i),
+                    isWatered = false
+                )
             }
-        }
-        return repeatedList.map {
+            listOf(event) + repeatedEvents
+        }.map {
             WaterThePlantNotification(
                 eventId = it.id!!,
                 plant = it.plantCached,
-                date = it.startDate,
-                isWatered = it.lastWaterDay.isEqual(LocalDate.now())
+                date = it.wateringDate,
+                isWatered = it.isWatered
             )
         }
     }
@@ -73,5 +74,5 @@ data class WaterThePlantNotification(
     val eventId: Int,
     val plant: PlantCached,
     val date: LocalDate,
-    val isWatered: Boolean
+    val isWatered: Boolean,
 )

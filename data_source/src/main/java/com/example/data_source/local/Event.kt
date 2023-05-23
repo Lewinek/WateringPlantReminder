@@ -7,8 +7,8 @@ import java.time.LocalDate
 data class Event(
     @PrimaryKey
     val id: Int? = null,
-    val startDate: LocalDate,
-    val lastWaterDay: LocalDate,
+    val wateringDate: LocalDate,
+    val isWatered: Boolean,
     val recurringInterval: Int,
     @Embedded(prefix = "plant")
     val plantCached: PlantCached,
