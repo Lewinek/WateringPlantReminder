@@ -60,4 +60,5 @@ dependencies {
     implementation androidXDependencies.values()
     implementation testDependencies.values()
     implementation koinDependencies.values()
+    implementation uiDependencies.values()
 }
