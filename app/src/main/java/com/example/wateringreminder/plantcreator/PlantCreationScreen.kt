@@ -21,8 +21,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.flowWithLifecycle
-import com.example.wateringreminder.AddButton
-import com.example.wateringreminder.DayButton
+import com.example.wateringreminder.compose.navigation.AddButton
+import com.example.wateringreminder.compose.DayButton
 import com.example.wateringreminder.LabelTextField
 import com.example.wateringreminder.R
 import com.example.wateringreminder.ui.theme.DarkText
