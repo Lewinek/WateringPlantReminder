@@ -1,8 +1,5 @@
 package com.example.wateringreminder.plantcreator
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.data_source.EventRepository
@@ -10,6 +7,7 @@ import com.example.data_source.Plant
 import com.example.data_source.PlantRepository
 import com.example.data_source.local.Event
 import com.example.data_source.local.PlantCached
+import com.example.wateringreminder.Constants
 import com.example.wateringreminder.EmptyTextFieldValidator
 import com.example.wateringreminder.watering.WateringUiState
 import kotlinx.coroutines.flow.*
@@ -24,26 +22,17 @@ class PlantCreationViewModel(
     private val _uiState = MutableStateFlow(WateringUiState())
     val uiState: StateFlow<WateringUiState> = _uiState.asStateFlow()
 
-    private var plantName by mutableStateOf("")
-    private var location by mutableStateOf("")
-    var isPlantNameCorrect by mutableStateOf(false)
-    var dayIndex = mutableStateOf(-1)
-    private var numberOfDaysToWatering: Int? = null
-        get() {
-            return if (dayIndex.value == -1) null else dayIndex.value
-        }
     private val _events = MutableSharedFlow<UiEvents>()
     val events = _events.asSharedFlow()
 
 
     fun createPlant() {
         if (!_uiState.value.showNameError) {
-
             viewModelScope.launch {
                 val plantId = plantRepository.insertPlant(
                     Plant(
                         name = uiState.value.plantName,
-                        location = "location"
+                        location = Constants.LOCATION
                     )
                 )
                 val plant = plantRepository.getPlantById(plantId.toInt())
@@ -56,7 +45,7 @@ class PlantCreationViewModel(
     private fun createEvent(plant: PlantCached): Event {
         return Event(
             wateringDate = LocalDate.now(),
-            recurringInterval = numberOfDaysToWatering ?: 1,
+            recurringInterval = 1,
             plantCached = plant,
             isWatered = false
         )
@@ -79,7 +68,7 @@ class PlantCreationViewModel(
     }
 
     fun updatePlantLocation(location: String) {
-        this.location = location
+        _uiState.update { uiState -> uiState.copy(location = location) }
     }
 
     fun updateSelectedDay(selectedDay: String) {
