@@ -10,6 +10,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -21,9 +22,11 @@ import com.example.wateringreminder.ui.theme.LightText
 @Composable
 fun DetailLabel(label: String, value: String, icon: Int) {
     Card(modifier = Modifier.padding(8.dp)) {
-        Row(modifier = Modifier
-            .background(color = LightText)
-            .padding(8.dp)) {
+        Row(
+            modifier = Modifier
+                .background(color = LightText)
+                .padding(8.dp)
+        ) {
             Icon(
                 painter = painterResource(id = icon),
                 contentDescription = "",
@@ -40,5 +43,9 @@ fun DetailLabel(label: String, value: String, icon: Int) {
 @Preview
 @Composable
 fun DetailLabelPreview() {
-    DetailLabel(label = "WATER", value = "1/week", R.drawable.water_drop)
+    DetailLabel(
+        label = stringResource(id = R.string.label_water),
+        value = stringResource(id = R.string.placeholder_volume),
+        R.drawable.water_drop
+    )
 }

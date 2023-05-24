@@ -18,8 +18,7 @@ import com.example.wateringreminder.ui.theme.LightText
 
 @Composable
 fun DayButton(day: String, selectedDay: String? = null, onClick: (String) -> Unit) {
-
-
+    
     val color = if (day == selectedDay) DarkText else BackgroundGrey
 
     Button(

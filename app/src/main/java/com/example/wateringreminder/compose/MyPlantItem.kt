@@ -32,7 +32,7 @@ fun MyPlantItem(plant: Plant) {
         colors = CardDefaults.cardColors(containerColor = LightBlue),
 
         ) {
-        Column() {
+        Column {
             Row(
                 modifier = Modifier
                     .background(color = LightBlue)
@@ -74,7 +74,7 @@ fun MyPlantItem(plant: Plant) {
                     )
                 }
             }
-            LazyRow() {
+            LazyRow {
                 items(1) {
                     DetailLabel(
                         label = stringResource(R.string.label_water), value = stringResource(
@@ -82,12 +82,12 @@ fun MyPlantItem(plant: Plant) {
                         ), R.drawable.water_drop
                     )
                     DetailLabel(
-                        label = stringResource(R.string.label_teperature), value = stringResource(
+                        label = stringResource(R.string.label_temperature), value = stringResource(
                             R.string.placeholder_temperature
                         ), R.drawable.water_drop
                     )
                     DetailLabel(
-                        label = stringResource(R.string.label_dfifficulty), value = stringResource(
+                        label = stringResource(R.string.label_difficulty), value = stringResource(
                             R.string.placeholder_difficulty
                         ), R.drawable.water_drop
                     )
@@ -96,9 +96,3 @@ fun MyPlantItem(plant: Plant) {
         }
     }
 }
-
-//@Preview
-//@Composable
-//fun MyPlantPreview() {
-////    MyPlantItem(plant = Plan)
-//}

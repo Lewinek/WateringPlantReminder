@@ -7,5 +7,5 @@ class EmptyTextFieldValidator : FieldValidator<String>(
     {
         it?.isNotEmpty() ?: false
     },
-    R.string.water_days_label
+    R.string.label_water_days
 )

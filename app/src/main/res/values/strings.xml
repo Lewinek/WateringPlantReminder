@@ -13,15 +13,16 @@
 
     <string name="plant_name_label">Name</string>
     <string name="plant_location_label">Location</string>
-    <string name="water_days_label">Water Days</string>
+    <string name="label_water_days">Water Days</string>
+    <string name="label_water_day">Water Day</string>
     <string name="empty_string"></string>
     <string name="label_plant">Plant</string>
     <string name="label_my_plants">My Plants</string>
     <string name="label_location">Location</string>
     <string name="placeholder_kitchen">Kitchen</string>
     <string name="label_water">WATER</string>
-    <string name="label_teperature">TEMPERATURE</string>
-    <string name="label_dfifficulty">DIFFICULTY</string>
+    <string name="label_temperature">TEMPERATURE</string>
+    <string name="label_difficulty">DIFFICULTY</string>
     <string name="placeholder_everyday">everyday</string>
     <string name="placeholder_temperature">15-24C</string>
     <string name="placeholder_difficulty">easy</string>

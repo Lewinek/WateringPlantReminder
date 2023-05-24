@@ -23,7 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.flowWithLifecycle
 import com.example.wateringreminder.compose.navigation.AddButton
 import com.example.wateringreminder.compose.DayButton
-import com.example.wateringreminder.LabelTextField
+import com.example.wateringreminder.compose.LabelTextField
 import com.example.wateringreminder.R
 import com.example.wateringreminder.ui.theme.DarkText
 import com.example.wateringreminder.ui.theme.LightBlue
@@ -38,7 +38,7 @@ fun PlantCreationScreen(onNavigateToMyPlants: () -> Unit) {
     val lifecycle = LocalLifecycleOwner.current.lifecycle
 
     LaunchedEffect(key1 = Unit, block = {
-        viewModel.events.flowWithLifecycle(lifecycle).collect() {
+        viewModel.events.flowWithLifecycle(lifecycle).collect {
             when (it) {
                 UiEvents.FinishScreen -> onNavigateToMyPlants()
                 UiEvents.ShowSnackbar -> {}
@@ -111,7 +111,7 @@ fun PlantCreationScreenContent(
                         .padding(top = 8.dp)
                 ) {
                     Text(
-                        text = stringResource(R.string.water_days_label),
+                        text = stringResource(R.string.label_water_days),
                         color = DarkText,
                         modifier = Modifier.padding(horizontal = 24.dp)
                     )
@@ -154,7 +154,7 @@ fun PlantCreationScreenContentPreview() {
 @Preview
 @Composable
 fun PlantCreationScreenPreview() {
-    PlantCreationScreen({})
+    PlantCreationScreen {}
 }
 
 sealed interface UiEvents {
