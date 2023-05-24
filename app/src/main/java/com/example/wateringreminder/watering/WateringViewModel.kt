@@ -22,15 +22,18 @@ class WateringViewModel(
     }
 
     private fun getPlantsThatNeedWatering() {
+        val today = LocalDate.now()
         viewModelScope.launch {
-            val plants = useCase().groupBy { it.date.toString() }
+            val plants = useCase().groupBy {
+                if (it.date.isBefore(today)) today else it.date
+            }
             _state.value = state.value.copy(plants = plants)
         }
     }
 
     fun changeWaterState(notification: WaterThePlantNotification) {
         viewModelScope.launch {
-            if (notification.date.isEqual(LocalDate.now())){
+            if (!notification.date.isAfter(LocalDate.now())) {
                 val event = eventRepository.getEvents().findLast { notification.eventId == it.id }
                 val newEvent = event?.copy(isWatered = !event.isWatered)
                 newEvent?.let { eventRepository.updateEvent(it) }
@@ -41,7 +44,7 @@ class WateringViewModel(
 }
 
 data class PlantsState(
-    val plants: Map<String, List<WaterThePlantNotification>> = emptyMap()
+    val plants: Map<LocalDate, List<WaterThePlantNotification>> = emptyMap()
 )
 
 class GetPlantNotificationUseCase(private val repository: EventRepository) {
