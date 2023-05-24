@@ -1,22 +1,20 @@
 package com.example.wateringreminder.watering
 
 import com.example.data_source.EventRepository
+import java.time.LocalDate
 
 class GetPlantNotificationUseCase(private val repository: EventRepository) {
-
-    val range: Int = 30
-    val numbersOfDay: Int = 5
-    val repeatedDay = range / numbersOfDay
+    private val rangeOfDays: Int = 30
 
     suspend operator fun invoke(): List<WaterThePlantNotification> {
         return repository.getEvents().flatMap { event ->
-            val repeatedEvents = (1..repeatedDay).map { i ->
+            val repeatedEvents = (1..(rangeOfDays / event.recurringInterval)).map { i ->
                 event.copy(
-                    wateringDate = event.wateringDate.plusDays(numbersOfDay.toLong() * i),
+                    wateringDate = event.wateringDate.plusDays(event.recurringInterval.toLong() * i),
                     isWatered = false
                 )
             }
-            listOf(event) + repeatedEvents
+            listOf(event) + repeatedEvents.filter { event -> event.wateringDate.isAfter(LocalDate.now()) }
         }.map {
             WaterThePlantNotification(
                 eventId = it.id!!,
