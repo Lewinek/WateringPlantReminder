@@ -22,6 +22,7 @@ import com.example.wateringreminder.R
 import com.example.wateringreminder.ui.theme.Grey
 import com.example.wateringreminder.ui.theme.LightBlue
 import com.example.wateringreminder.ui.theme.LightText
+import com.example.wateringreminder.ui.theme.kanit
 
 @Composable
 fun PlantItem(plant: PlantCached, isItWatered: Boolean, changeWaterState: () -> Unit) {
@@ -29,9 +30,9 @@ fun PlantItem(plant: PlantCached, isItWatered: Boolean, changeWaterState: () -> 
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp),
+            .padding(horizontal = 32.dp),
         colors = cardColors(containerColor = if (isItWatered) LightBlue else LightText),
-        shape = RoundedCornerShape(12.dp)
+        shape = RoundedCornerShape(20.dp)
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Image(
@@ -42,7 +43,7 @@ fun PlantItem(plant: PlantCached, isItWatered: Boolean, changeWaterState: () -> 
                     .padding(8.dp)
                     .weight(0.5f)
                     .aspectRatio(1f)
-                    .clip(RoundedCornerShape(12.dp)),
+                    .clip(RoundedCornerShape(20.dp)),
             )
             Column(
                 modifier = Modifier
@@ -53,8 +54,9 @@ fun PlantItem(plant: PlantCached, isItWatered: Boolean, changeWaterState: () -> 
                 Text(
                     text = plant.name,
                     color = Color.White,
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight.Bold
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Bold,
+                    fontFamily = kanit
                 )
                 Row(
                     verticalAlignment = Alignment.CenterVertically,

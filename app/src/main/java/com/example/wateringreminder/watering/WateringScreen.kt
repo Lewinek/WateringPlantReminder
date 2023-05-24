@@ -12,7 +12,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.wateringreminder.compose.PlantItem
+import com.example.wateringreminder.extensions.toWateringDay
 import com.example.wateringreminder.ui.theme.DarkText
+import com.example.wateringreminder.ui.theme.kanit
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -21,16 +23,8 @@ fun WateringScreen() {
     val state = viewModel.state.value
 
     Column(modifier = Modifier.background(color = Color.White)) {
-        Text(
-            text = "Water Today",
-            modifier = Modifier
-                .padding(16.dp),
-            color = DarkText,
-            fontSize = 32.sp,
-            fontWeight = FontWeight.Bold
-        )
         LazyColumn(
-            verticalArrangement = Arrangement.spacedBy(8.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp),
             contentPadding = PaddingValues(bottom = 8.dp),
             modifier = Modifier
                 .background(color = Color.White)
@@ -39,7 +33,14 @@ fun WateringScreen() {
             state.plants?.let {
                 it.toList().forEach { (date, plant) ->
                     item {
-                        Text(text = date, Modifier.background(color = Color.Red))
+                        Text(
+                            text = date.toWateringDay(), modifier = Modifier
+                                .padding(start = 32.dp, top = 16.dp),
+                            color = DarkText,
+                            fontSize = 24.sp,
+                            fontWeight = FontWeight.Bold,
+                            fontFamily = kanit
+                        )
                     }
                     items(plant) {
                         PlantItem(

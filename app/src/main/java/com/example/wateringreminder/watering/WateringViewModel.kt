@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.data_source.EventRepository
 import com.example.data_source.local.PlantCached
+import com.example.wateringreminder.extensions.isToday
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 
@@ -23,14 +24,14 @@ class WateringViewModel(
 
     private fun getPlantsThatNeedWatering() {
         viewModelScope.launch {
-            val plants = useCase().groupBy { it.date.toString() }
+            val plants = useCase().groupBy { it.date }
             _state.value = state.value.copy(plants = plants)
         }
     }
 
     fun changeWaterState(notification: WaterThePlantNotification) {
         viewModelScope.launch {
-            if (notification.date.isEqual(LocalDate.now())){
+            if (notification.date.isToday()){
                 val event = eventRepository.getEvents().findLast { notification.eventId == it.id }
                 val newEvent = event?.copy(isWatered = !event.isWatered)
                 newEvent?.let { eventRepository.updateEvent(it) }
@@ -41,7 +42,7 @@ class WateringViewModel(
 }
 
 data class PlantsState(
-    val plants: Map<String, List<WaterThePlantNotification>> = emptyMap()
+    val plants: Map<LocalDate, List<WaterThePlantNotification>> = emptyMap()
 )
 
 class GetPlantNotificationUseCase(private val repository: EventRepository) {
