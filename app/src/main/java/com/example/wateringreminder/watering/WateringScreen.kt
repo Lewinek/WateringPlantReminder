@@ -30,25 +30,23 @@ fun WateringScreen() {
                 .background(color = Color.White)
                 .fillMaxSize()
         ) {
-            state.plants?.let {
-                it.toList().forEach { (date, plant) ->
-                    item {
-                        Text(
-                            text = date.toWateringDay(), modifier = Modifier
-                                .padding(start = 32.dp, top = 16.dp),
-                            color = DarkText,
-                            fontSize = 24.sp,
-                            fontWeight = FontWeight.Bold,
-                            fontFamily = kanit
-                        )
-                    }
-                    items(plant) {
-                        PlantItem(
-                            plant = it.plant,
-                            isItWatered = it.isWatered,
-                            changeWaterState = { viewModel.changeWaterState(it) }
-                        )
-                    }
+            state.plants.toList().forEach { (date, plant) ->
+                item {
+                    Text(
+                        text = date.toWateringDay(), modifier = Modifier
+                            .padding(start = 32.dp, top = 16.dp),
+                        color = DarkText,
+                        fontSize = 24.sp,
+                        fontWeight = FontWeight.Bold,
+                        fontFamily = kanit
+                    )
+                }
+                items(plant) {
+                    PlantItem(
+                        plant = it.plant,
+                        isItWatered = it.isWatered,
+                        changeWaterState = { viewModel.changeWaterState(it) }
+                    )
                 }
             }
         }

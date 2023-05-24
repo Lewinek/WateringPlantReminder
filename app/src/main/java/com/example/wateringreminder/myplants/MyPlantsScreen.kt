@@ -16,12 +16,13 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.data_source.Plant
-import com.example.wateringreminder.MyPlantItem
+import com.example.wateringreminder.compose.MyPlantItem
 import com.example.wateringreminder.R
 import com.example.wateringreminder.ui.theme.DarkText
 import org.koin.androidx.compose.koinViewModel
@@ -49,7 +50,7 @@ fun MyPlantsScreenContent(
     Column(modifier = Modifier.background(color = Color.White)) {
         Row() {
             Text(
-                text = "My Plants",
+                text = stringResource(R.string.label_my_plants),
                 modifier = Modifier
                     .padding(16.dp),
                 color = DarkText,
@@ -68,7 +69,7 @@ fun MyPlantsScreenContent(
                     tint = Color.White
                 )
                 Text(
-                    text = "Plant",
+                    text = stringResource(R.string.label_plant),
                     color = Color.White,
                     fontWeight = FontWeight.Bold
                 )

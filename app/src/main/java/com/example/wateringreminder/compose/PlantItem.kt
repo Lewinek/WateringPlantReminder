@@ -13,6 +13,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -68,7 +69,7 @@ fun PlantItem(plant: PlantCached, isItWatered: Boolean, changeWaterState: () -> 
                         tint = if (isItWatered) Color.White else Grey
                     )
                     Text(
-                        text = "~ 150 ml",
+                        text = stringResource(R.string.placeholder_volume),
                         color = if (isItWatered) Color.White else Grey
                     )
                 }

@@ -1,6 +1,6 @@
 package com.example.wateringreminder.compose.navigation
 
-import com.example.wateringreminder.IconResource
+import com.example.wateringreminder.compose.IconResource
 import com.example.wateringreminder.R
 
 sealed class BottomBarScreen(
