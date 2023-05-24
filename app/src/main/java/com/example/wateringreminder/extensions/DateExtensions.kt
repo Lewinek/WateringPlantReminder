@@ -1,6 +1,6 @@
 package com.example.wateringreminder.extensions
 
-import com.example.wateringreminder.DateFormat
+import com.example.wateringreminder.utils.constants.DateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*

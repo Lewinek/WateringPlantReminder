@@ -7,8 +7,8 @@ import com.example.data_source.Plant
 import com.example.data_source.PlantRepository
 import com.example.data_source.local.Event
 import com.example.data_source.local.PlantCached
-import com.example.wateringreminder.Constants
-import com.example.wateringreminder.EmptyTextFieldValidator
+import com.example.wateringreminder.utils.constants.Constants
+import com.example.wateringreminder.utils.validators.EmptyTextFieldValidator
 import com.example.wateringreminder.watering.WateringUiState
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
