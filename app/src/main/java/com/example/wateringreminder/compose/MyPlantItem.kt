@@ -14,6 +14,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -60,13 +61,13 @@ fun MyPlantItem(plant: Plant) {
                     )
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(
-                        text = "Location",
+                        text = stringResource(R.string.label_location),
                         color = Color.White,
                         fontSize = 12.sp,
                         fontWeight = FontWeight.Bold
                     )
                     Text(
-                        text = "Kitchen",
+                        text = stringResource(R.string.placeholder_kitchen),
                         color = Color.White,
                         fontSize = 14.sp,
                         fontWeight = FontWeight.Bold
@@ -75,9 +76,21 @@ fun MyPlantItem(plant: Plant) {
             }
             LazyRow() {
                 items(1) {
-                    DetailLabel(label = "WATER", value = "1/week", R.drawable.water_drop)
-                    DetailLabel(label = "TEMPERATURE", value = "15-24C", R.drawable.water_drop)
-                    DetailLabel(label = "DIFFICULTY", value = "easy", R.drawable.water_drop)
+                    DetailLabel(
+                        label = stringResource(R.string.label_water), value = stringResource(
+                            R.string.placeholder_everyday
+                        ), R.drawable.water_drop
+                    )
+                    DetailLabel(
+                        label = stringResource(R.string.label_teperature), value = stringResource(
+                            R.string.placeholder_temperature
+                        ), R.drawable.water_drop
+                    )
+                    DetailLabel(
+                        label = stringResource(R.string.label_dfifficulty), value = stringResource(
+                            R.string.placeholder_difficulty
+                        ), R.drawable.water_drop
+                    )
                 }
             }
         }
