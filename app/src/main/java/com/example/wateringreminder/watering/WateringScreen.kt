@@ -12,7 +12,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.wateringreminder.compose.PlantItem
-import com.example.wateringreminder.extensions.toWateringDay
+import com.example.wateringreminder.extensions.toDateDisplay
 import com.example.wateringreminder.ui.theme.DarkText
 import com.example.wateringreminder.ui.theme.kanit
 import org.koin.androidx.compose.koinViewModel
@@ -33,7 +33,7 @@ fun WateringScreen() {
             state.plants.toList().forEach { (date, plant) ->
                 item {
                     Text(
-                        text = date.toWateringDay(), modifier = Modifier
+                        text = date.toDateDisplay(), modifier = Modifier
                             .padding(start = 32.dp, top = 16.dp),
                         color = DarkText,
                         fontSize = 24.sp,
