@@ -22,7 +22,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.data_source.Plant
-import com.example.wateringreminder.compose.MyPlantItem
+import com.example.wateringreminder.ui.compose.MyPlantItem
 import com.example.wateringreminder.R
 import com.example.wateringreminder.ui.theme.DarkText
 import org.koin.androidx.compose.koinViewModel

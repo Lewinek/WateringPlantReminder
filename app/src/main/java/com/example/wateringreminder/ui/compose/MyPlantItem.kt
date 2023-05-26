@@ -1,4 +1,4 @@
-package com.example.wateringreminder.compose
+package com.example.wateringreminder.ui.compose
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background

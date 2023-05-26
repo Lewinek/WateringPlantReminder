@@ -11,8 +11,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.wateringreminder.compose.PlantItem
-import com.example.wateringreminder.extensions.toDateDisplay
+import com.example.wateringreminder.ui.compose.PlantItem
+import com.example.wateringreminder.utils.extensions.toDateDisplay
 import com.example.wateringreminder.ui.theme.DarkText
 import com.example.wateringreminder.ui.theme.kanit
 import org.koin.androidx.compose.koinViewModel
