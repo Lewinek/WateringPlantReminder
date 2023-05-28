@@ -3,9 +3,8 @@ package com.example.wateringreminder
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.work.Constraints
-import androidx.work.NetworkType
-import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.ExistingPeriodicWorkPolicy
+import androidx.work.PeriodicWorkRequest
 import androidx.work.WorkManager
 import com.example.wateringreminder.ui.theme.WateringReminderTheme
 import java.util.*
@@ -23,19 +22,30 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun scheduleNewDayTask() {
-        val calendar = Calendar.getInstance()
-        calendar.timeInMillis = System.currentTimeMillis()
-        calendar.set(Calendar.HOUR_OF_DAY, 14)
-        calendar.set(Calendar.MINUTE, 33)
-        calendar.set(Calendar.SECOND, 0)
+        val currentDate = Calendar.getInstance()
+        val dueDate = Calendar.getInstance()
 
-        val currentTime = calendar.timeInMillis
-        val timeDiff = currentTime - System.currentTimeMillis()
+        dueDate.set(Calendar.HOUR_OF_DAY, 18)
+        dueDate.set(Calendar.MINUTE, 51)
+        dueDate.set(Calendar.SECOND, 0)
+        if (dueDate.before(currentDate)) {
+            dueDate.add(Calendar.HOUR_OF_DAY, 24)
+        }
 
-        val showMsgWorkRequest = OneTimeWorkRequestBuilder<UpdateEventWorker>()
-            .setInitialDelay(timeDiff, TimeUnit.MILLISECONDS)
-            .build()
+        val timeDiff = dueDate.timeInMillis - currentDate.timeInMillis
+        val minutes = TimeUnit.MILLISECONDS.toMinutes(timeDiff)
 
-        WorkManager.getInstance(this).enqueue(showMsgWorkRequest)
+        val refreshCpnWork =
+            PeriodicWorkRequest.Builder(UpdateEventWorker::class.java, 1, TimeUnit.DAYS)
+                .setInitialDelay(minutes, TimeUnit.MINUTES)
+                .addTag("myWorkManager")
+                .build()
+
+        WorkManager.getInstance(this)
+            .enqueueUniquePeriodicWork(
+                "myWorkManager",
+                ExistingPeriodicWorkPolicy.UPDATE,
+                refreshCpnWork
+            )
     }
 }
