@@ -13,4 +13,5 @@ val appModule = module {
     viewModel { MyPlantsViewModel(get()) }
 
     factory { GetPlantNotificationUseCase(get()) }
+    factory { ScheduleNewDayTaskUseCase() }
 }
