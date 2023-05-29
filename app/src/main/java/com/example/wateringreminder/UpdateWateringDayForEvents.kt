@@ -10,7 +10,12 @@ class UpdateWateringDayForEvents(private val eventRepository: EventRepository) {
         events.filter {
             it.wateringDate.isBefore(LocalDate.now())
             it.isWatered
-        }.map { it.copy(wateringDate = LocalDate.now().plusDays(it.recurringInterval.toLong())) }
+        }.map {
+            it.copy(
+                wateringDate = LocalDate.now().plusDays(it.recurringInterval.toLong()),
+                isWatered = false
+            )
+        }
         eventRepository.updateEvents(events)
     }
 }
