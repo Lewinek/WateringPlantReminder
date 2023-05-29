@@ -14,4 +14,7 @@ interface EventDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun updateEvent(vararg event: Event)
+
+    @Update
+    suspend fun updateEvents(events: List<Event>)
 }

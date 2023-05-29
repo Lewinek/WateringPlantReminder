@@ -7,6 +7,7 @@ interface EventRepository {
     suspend fun insertEvent(event: Event)
     suspend fun getEvents(): List<Event>
     suspend fun updateEvent(event: Event)
+    suspend fun updateEvents(events: List<Event>)
 }
 
 class EventRepositoryImpl(
@@ -22,5 +23,9 @@ class EventRepositoryImpl(
 
     override suspend fun updateEvent(event: Event) {
         eventDao.updateEvent(event)
+    }
+
+    override suspend fun updateEvents(events: List<Event>) {
+        eventDao.updateEvents(events)
     }
 }
