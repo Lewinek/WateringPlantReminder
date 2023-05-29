@@ -1,12 +1,12 @@
 package com.example.wateringreminder
 
-import androidx.work.ExistingPeriodicWorkPolicy
+import android.content.Context
 import androidx.work.PeriodicWorkRequest
 import androidx.work.WorkManager
 import java.util.*
 import java.util.concurrent.TimeUnit
 
-class ScheduleNewDayTaskUseCase() {
+class ScheduleNewDayTaskUseCase(private val context: Context, ) {
     operator fun invoke() {
         val refreshCpnWork =
             PeriodicWorkRequest.Builder(UpdateEventWorker::class.java, 1, TimeUnit.DAYS)
@@ -14,20 +14,15 @@ class ScheduleNewDayTaskUseCase() {
                 .addTag("myWorkManager")
                 .build()
 
-        WorkManager.getInstance()
-            .enqueueUniquePeriodicWork(
-                "myWorkManager",
-                ExistingPeriodicWorkPolicy.UPDATE,
-                refreshCpnWork
-            )
+        WorkManager.getInstance(context).enqueue(refreshCpnWork)
     }
 
     private fun calculateInitialDelay(): Long {
         val currentDate = Calendar.getInstance()
         val dueDate = Calendar.getInstance()
 
-        dueDate.set(Calendar.HOUR_OF_DAY, 18)
-        dueDate.set(Calendar.MINUTE, 51)
+        dueDate.set(Calendar.HOUR_OF_DAY, 8)
+        dueDate.set(Calendar.MINUTE, 20)
         dueDate.set(Calendar.SECOND, 0)
         if (dueDate.before(currentDate)) {
             dueDate.add(Calendar.HOUR_OF_DAY, 24)
