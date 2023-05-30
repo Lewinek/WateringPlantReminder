@@ -1,5 +1,6 @@
 package com.example.wateringreminder
 
+import androidx.work.WorkManager
 import com.example.wateringreminder.myplants.MyPlantsViewModel
 import com.example.wateringreminder.plantcreator.PlantCreationViewModel
 import com.example.wateringreminder.watering.GetPlantNotificationUseCase
@@ -15,8 +16,9 @@ val appModule = module {
     viewModel { MyPlantsViewModel(get()) }
 
     factory { GetPlantNotificationUseCase(get()) }
-    factory { ScheduleNewDayTaskUseCase(androidContext()) }
+    factory { ScheduleNewDayTaskUseCase(get()) }
     factory { UpdateWateringDayForEvents(get()) }
 
     worker { UpdateEventWorker(androidContext(), get()) }
+    single { WorkManager.getInstance(get()) }
 }
