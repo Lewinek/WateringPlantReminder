@@ -27,6 +27,8 @@ ext {
             picker           : '1.0.3',
             workManager      : '2.8.1',
             dataStore        : '1.0.0',
+            workManagerTest  : '2.7.0',
+            mockAndroid      : '1.13.5',
     ]
 
     androidXDependencies = [
@@ -56,6 +58,9 @@ ext {
             composeJunit       : "androidx.compose.ui:ui-test-junit4:$versions.compose",
             composeTooling     : "androidx.compose.ui:ui-tooling:$versions.compose",
             composeTestManifest: "androidx.compose.ui:ui-test-manifest:$versions.compose",
+            workManagerTesting : "androidx.work:work-testing:$versions.workManagerTest",
+            mockAndroid        : "io.mockk:mockk-android:$versions.mockAndroid",
+            mockAgent          : "io.mockk:mockk-agent:$versions.mockAndroid",
     ]
 
     coroutinesDependencies = [
