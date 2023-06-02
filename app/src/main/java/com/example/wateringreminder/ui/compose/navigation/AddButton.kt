@@ -1,4 +1,4 @@
-package com.example.wateringreminder.compose.navigation
+package com.example.wateringreminder.ui.compose.navigation
 
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button

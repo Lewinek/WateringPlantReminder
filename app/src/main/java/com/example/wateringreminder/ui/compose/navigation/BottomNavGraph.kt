@@ -1,4 +1,4 @@
-package com.example.wateringreminder.compose.navigation
+package com.example.wateringreminder.ui.compose.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController

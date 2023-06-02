@@ -1,4 +1,4 @@
-package com.example.wateringreminder.compose
+package com.example.wateringreminder.ui.compose
 
 import androidx.annotation.DrawableRes
 import androidx.compose.runtime.Composable

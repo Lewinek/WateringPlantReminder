@@ -51,6 +51,11 @@ android {
         unitTests.all {
             useJUnitPlatform()
         }
+        packagingOptions {
+            jniLibs {
+                useLegacyPackaging = true
+            }
+        }
     }
 }
 

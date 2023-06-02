@@ -11,7 +11,7 @@ import java.time.LocalDate
 
 class WateringViewModel(
     private val eventRepository: EventRepository,
-    private val useCase: GetPlantNotificationUseCase
+    private val getPlantNotificationUseCase: GetPlantNotificationUseCase
 ) : ViewModel() {
 
     private val _state = mutableStateOf(PlantsState())
@@ -24,7 +24,7 @@ class WateringViewModel(
     private fun getPlantsThatNeedWatering() {
         val today = LocalDate.now()
         viewModelScope.launch {
-            val plants = useCase().groupBy {
+            val plants = getPlantNotificationUseCase().groupBy {
                 if (it.date.isBefore(today)) today else it.date
             }
             _state.value = state.value.copy(plants = plants)
