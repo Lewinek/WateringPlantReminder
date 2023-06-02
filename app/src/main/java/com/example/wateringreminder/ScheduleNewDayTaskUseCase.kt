@@ -16,10 +16,10 @@ class ScheduleNewDayTaskUseCase(private val workManager: WorkManager) : WorkEnqu
             .addTag("myWorkManager")
             .build()
 
-        enqueue(workRequest)
+        workManager.enqueue(workRequest)
     }
 
-    private fun calculateInitialDelay(): java.time.Duration {
+    fun calculateInitialDelay(): java.time.Duration {
         val currentDate = Calendar.getInstance()
         val dueDate = Calendar.getInstance().apply {
             set(Calendar.HOUR_OF_DAY, 5)
