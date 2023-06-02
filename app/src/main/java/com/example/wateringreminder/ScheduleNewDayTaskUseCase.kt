@@ -1,45 +1,43 @@
 package com.example.wateringreminder
 
-import android.content.Context
-import androidx.work.ExistingPeriodicWorkPolicy
-import androidx.work.PeriodicWorkRequest
+import androidx.work.OneTimeWorkRequest
+import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import java.util.*
-import java.util.concurrent.TimeUnit
+import kotlin.time.DurationUnit
+import kotlin.time.toDuration
+import kotlin.time.toJavaDuration
+
 
 class ScheduleNewDayTaskUseCase(private val workManager: WorkManager) : WorkEnqueue {
     operator fun invoke() {
-        val refreshCpnWork = PeriodicWorkRequest.Builder(
-            UpdateEventWorker::class.java, 1, TimeUnit.DAYS)
-            .setInitialDelay(calculateInitialDelay(), TimeUnit.MINUTES)
+        val workRequest = OneTimeWorkRequestBuilder<UpdateEventWorker>()
+            .setInitialDelay(calculateInitialDelay())
             .addTag("myWorkManager")
             .build()
 
-        enqueue(refreshCpnWork)
+        enqueue(workRequest)
     }
 
-    fun calculateInitialDelay(): Long {
+    private fun calculateInitialDelay(): java.time.Duration {
+        val currentDate = Calendar.getInstance()
         val dueDate = Calendar.getInstance().apply {
-            set(Calendar.HOUR_OF_DAY, 8)
-            set(Calendar.MINUTE, 20)
+            set(Calendar.HOUR_OF_DAY, 5)
+            set(Calendar.MINUTE, 0)
             set(Calendar.SECOND, 0)
-            if (before(Calendar.getInstance())) {
-                add(Calendar.HOUR_OF_DAY, 24)
-            }
         }
-
-        return TimeUnit.MILLISECONDS.toMinutes(dueDate.timeInMillis - System.currentTimeMillis())
+        if (dueDate.before(currentDate)) {
+            dueDate.add(Calendar.HOUR_OF_DAY, 24)
+        }
+        return (dueDate.timeInMillis - currentDate.timeInMillis).toDuration(DurationUnit.MILLISECONDS)
+            .toJavaDuration()
     }
 
-    override fun enqueue(workRequest: PeriodicWorkRequest) {
-        workManager.enqueueUniquePeriodicWork(
-            "myWorkManager",
-            ExistingPeriodicWorkPolicy.KEEP,
-            workRequest
-        )
+    override fun enqueue(workRequest: OneTimeWorkRequest) {
+        workManager.enqueue(workRequest)
     }
 }
 
 interface WorkEnqueue {
-    fun enqueue(workRequest: PeriodicWorkRequest)
+    fun enqueue(workRequest: OneTimeWorkRequest)
 }
