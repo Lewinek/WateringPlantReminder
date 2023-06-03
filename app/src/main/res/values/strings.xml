@@ -14,7 +14,7 @@
     <string name="plant_name_label">Name</string>
     <string name="plant_location_label">Location</string>
     <string name="label_water_days">Water Days</string>
-    <string name="label_water_day">Water Day</string>
+    <string name="label_water_today">Water Today</string>
     <string name="empty_string"></string>
     <string name="label_plant">Plant</string>
     <string name="label_my_plants">My Plants</string>
@@ -28,4 +28,9 @@
     <string name="placeholder_difficulty">easy</string>
     <string name="placeholder_volume">~ 150 ml</string>
     <string name="label_add_plant">Add Plant</string>
+    <string name="label_done">Done</string>
+    <plurals name="remaining_plants">
+        <item quantity="one">%s Plant</item>
+        <item quantity="other">%s Plants</item>
+    </plurals>
 </resources>
