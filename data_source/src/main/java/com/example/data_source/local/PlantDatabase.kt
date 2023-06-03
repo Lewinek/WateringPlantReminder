@@ -7,7 +7,7 @@ import com.example.data_source.converters.LocalDateConverter
 
 @Database(
     entities = [PlantCached::class, Event::class],
-    version = 13
+    version = 14
 )
 @TypeConverters(LocalDateConverter::class)
 abstract class PlantDatabase : RoomDatabase() {

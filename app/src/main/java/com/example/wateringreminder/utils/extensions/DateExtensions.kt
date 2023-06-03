@@ -13,6 +13,6 @@ val formatter: DateTimeFormatter =
 
 @Composable
 fun LocalDate.toDateDisplay(): String =
-    if (isToday()) stringResource(R.string.label_water_day) else format(formatter)
+    if (isToday()) stringResource(R.string.label_water_today) else format(formatter)
 
 fun LocalDate.isToday() = isEqual(LocalDate.now())

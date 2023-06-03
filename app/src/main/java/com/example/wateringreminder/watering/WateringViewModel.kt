@@ -1,11 +1,12 @@
 package com.example.wateringreminder.watering
 
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.data_source.EventRepository
 import com.example.data_source.local.PlantCached
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 
@@ -14,8 +15,8 @@ class WateringViewModel(
     private val getPlantNotificationUseCase: GetPlantNotificationUseCase
 ) : ViewModel() {
 
-    private val _state = mutableStateOf(PlantsState())
-    val state: State<PlantsState> = _state
+    private val _state = MutableStateFlow(PlantsState())
+    val state: StateFlow<PlantsState> = _state.asStateFlow()
 
     init {
         getPlantsThatNeedWatering()
