@@ -83,52 +83,6 @@ fun MyPlantItem(plant: Plant) {
         }
     }
 }
-//        ) {
-//        Column {
-//            Row(
-//                modifier = Modifier
-//                    .background(color = LightBlue)
-//            ) {
-//                Image(
-//                    painter = painterResource(id = R.drawable.plant),
-//                    contentDescription = "",
-//                    contentScale = ContentScale.Crop,
-//                    modifier = Modifier
-//                        .padding(8.dp)
-//                        .weight(1f)
-//                        .aspectRatio(1f)
-//                        .clip(RoundedCornerShape(12.dp)),
-//                )
-//                Column(
-//                    modifier = Modifier
-//                        .background(color = LightBlue)
-//                        .weight(1f)
-//                        .padding(top = 8.dp)
-//                ) {
-//                    Text(
-//                        text = plant.name,
-//                        color = Color.White,
-//                        fontSize = 20.sp,
-//                        fontWeight = FontWeight.Bold
-//                    )
-//                    Spacer(modifier = Modifier.height(8.dp))
-//                    Text(
-//                        text = stringResource(R.string.label_location),
-//                        color = Color.White,
-//                        fontSize = 12.sp,
-//                        fontWeight = FontWeight.Bold
-//                    )
-//                    Text(
-//                        text = stringResource(R.string.placeholder_kitchen),
-//                        color = Color.White,
-//                        fontSize = 14.sp,
-//                        fontWeight = FontWeight.Bold
-//                    )
-//                }
-//            }
-//        }
-//    }
-//}
 
 @Preview
 @Composable
