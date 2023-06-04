@@ -5,10 +5,7 @@ package com.example.wateringreminder.myplants
 import android.annotation.SuppressLint
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.*
@@ -25,6 +22,7 @@ import com.example.data_source.Plant
 import com.example.wateringreminder.ui.compose.MyPlantItem
 import com.example.wateringreminder.R
 import com.example.wateringreminder.ui.theme.DarkText
+import com.example.wateringreminder.ui.theme.kanit
 import org.koin.androidx.compose.koinViewModel
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -47,21 +45,19 @@ fun MyPlantsScreenContent(
     uiState: MyPlantsUiState,
     removePlant: (Plant) -> Unit,
 ) {
-    Column(modifier = Modifier.background(color = Color.White)) {
-        Row() {
+    Column(modifier = Modifier.background(color = Color.White).fillMaxSize()) {
+        Row(modifier = Modifier.padding(horizontal = 32.dp, vertical = 16.dp)) {
             Text(
                 text = stringResource(R.string.label_my_plants),
-                modifier = Modifier
-                    .padding(16.dp),
                 color = DarkText,
-                fontSize = 32.sp,
-                fontWeight = FontWeight.Bold
+                fontSize = 28.sp,
+                fontWeight = FontWeight.Bold,
+                fontFamily = kanit
             )
             Spacer(modifier = Modifier.weight(1f))
             Button(
                 onClick = onNavigateToPlantCreator,
                 colors = ButtonDefaults.buttonColors(containerColor = DarkText),
-                modifier = Modifier.padding(16.dp),
             ) {
                 Icon(
                     painter = painterResource(id = R.drawable.add),
@@ -71,11 +67,14 @@ fun MyPlantsScreenContent(
                 Text(
                     text = stringResource(R.string.label_plant),
                     color = Color.White,
-                    fontWeight = FontWeight.Bold
+                    fontWeight = FontWeight.Bold,
+                    fontFamily = kanit
                 )
             }
         }
-        LazyColumn() {
+        LazyColumn(
+            verticalArrangement = Arrangement.spacedBy(24.dp)
+        ) {
             items(
                 items = uiState.plants,
                 key = { it.id!! },
@@ -103,6 +102,6 @@ fun MyPlantsScreenContent(
 
 @Preview
 @Composable
-fun MyPlantsScreenPreview() {
-    MyPlantsScreen {}
+fun MyPlantsScreenContentPreview() {
+    MyPlantsScreenContent({}, MyPlantsUiState(), {})
 }
