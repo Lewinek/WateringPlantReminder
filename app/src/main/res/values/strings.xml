@@ -23,10 +23,13 @@
     <string name="label_water">WATER</string>
     <string name="label_temperature">TEMPERATURE</string>
     <string name="label_difficulty">DIFFICULTY</string>
+    <string name="label_light">LIGHT</string>
     <string name="placeholder_everyday">everyday</string>
     <string name="placeholder_temperature">15-24C</string>
     <string name="placeholder_difficulty">easy</string>
     <string name="placeholder_volume">~ 150 ml</string>
+    <string name="placeholder_watering_day">1/week</string>
+    <string name="placeholder_medium">medium</string>
     <string name="label_add_plant">Add Plant</string>
     <string name="label_done">Done</string>
     <plurals name="remaining_plants">
