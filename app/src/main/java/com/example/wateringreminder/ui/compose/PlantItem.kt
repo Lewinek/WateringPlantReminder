@@ -35,14 +35,17 @@ fun PlantItem(plant: PlantCached, isItWatered: Boolean, changeWaterState: () -> 
         colors = cardColors(containerColor = if (isItWatered) LightBlue else LightText),
         shape = RoundedCornerShape(20.dp)
     ) {
-        Row(verticalAlignment = Alignment.CenterVertically) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.padding(vertical = 4.dp)
+        ) {
             Image(
                 painter = painterResource(id = R.drawable.plant),
                 contentDescription = "",
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .padding(8.dp)
-                    .weight(0.5f)
+                    .weight(0.6f)
                     .aspectRatio(1f)
                     .clip(RoundedCornerShape(20.dp)),
             )
