@@ -27,10 +27,9 @@ import com.example.wateringreminder.ui.theme.LightBlue
 import com.example.wateringreminder.ui.theme.kanit
 
 @Composable
-fun MyPlantItem(plant: Plant) {
+fun MyPlantItem(plant: Plant, modifier: Modifier = Modifier) {
     Card(
-        modifier = Modifier
-            .fillMaxWidth()
+        modifier = modifier
             .padding(horizontal = 32.dp),
         shape = RoundedCornerShape(20.dp),
         colors = CardDefaults.cardColors(containerColor = LightBlue),

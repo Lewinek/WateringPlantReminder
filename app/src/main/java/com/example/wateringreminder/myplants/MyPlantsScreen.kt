@@ -95,7 +95,7 @@ fun MyPlantsScreenContent(
                     }
                 )
                 val emailHeightAnimation by animateDpAsState(
-                    targetValue = if (isItemDismissed) 0.dp else 300.dp,
+                    targetValue = if (isItemDismissed) 0.dp else 240.dp,
                     animationSpec = tween(delayMillis = 300),
                     finishedListener = {
                         removePlant(currentItem)
@@ -115,7 +115,12 @@ fun MyPlantsScreenContent(
                     directions = setOf(androidx.compose.material.DismissDirection.StartToEnd),
                     dismissThresholds = { androidx.compose.material.FractionalThreshold(0.15f) },
                     dismissContent = {
-                        MyPlantItem(plant = item)
+                        MyPlantItem(
+                            plant = item,
+                            modifier = Modifier
+                                .height(emailHeightAnimation)
+                                .fillMaxWidth()
+                        )
                     }
                 )
             }
