@@ -13,7 +13,7 @@ import org.koin.dsl.module
 val appModule = module {
     viewModel { WateringViewModel(get(), get()) }
     viewModel { PlantCreationViewModel(get(), get()) }
-    viewModel { MyPlantsViewModel(get()) }
+    viewModel { MyPlantsViewModel(get(), get()) }
 
     factory { GetPlantNotificationUseCase(get()) }
     factory { ScheduleNewDayTaskUseCase(get()) }
