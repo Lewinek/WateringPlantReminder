@@ -2,6 +2,7 @@ package com.example.wateringreminder.myplants
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.data_source.EventRepository
 import com.example.data_source.Plant
 import com.example.data_source.PlantRepository
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -11,7 +12,8 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class MyPlantsViewModel(
-    private val repository: PlantRepository
+    private val plantRepository: PlantRepository,
+    private val eventRepository: EventRepository
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(MyPlantsUiState())
@@ -23,13 +25,16 @@ class MyPlantsViewModel(
 
     private fun getPlants() {
         viewModelScope.launch {
-            repository.getPlants().collect {
+            plantRepository.getPlants().collect {
                 _uiState.update { uiState -> uiState.copy(plants = it) }
             }
         }
     }
 
     fun removePlant(plant: Plant) {
-        viewModelScope.launch { repository.removePlant(plant) }
+        viewModelScope.launch {
+            plantRepository.removePlant(plant)
+            plant.id?.let { eventRepository.removeEvent(it) }
+        }
     }
 }

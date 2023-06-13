@@ -17,4 +17,7 @@ interface EventDao {
 
     @Update
     suspend fun updateEvents(events: List<Event>)
+
+    @Query("DELETE FROM event WHERE event.plantid = :plantId")
+    suspend fun removeEvent(plantId: Int)
 }
