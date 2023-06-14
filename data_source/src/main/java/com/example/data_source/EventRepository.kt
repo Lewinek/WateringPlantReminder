@@ -2,10 +2,11 @@ package com.example.data_source
 
 import com.example.data_source.local.Event
 import com.example.data_source.local.EventDao
+import kotlinx.coroutines.flow.Flow
 
 interface EventRepository {
     suspend fun insertEvent(event: Event)
-    suspend fun getEvents(): List<Event>
+    fun getEvents(): Flow<List<Event>>
     suspend fun updateEvent(event: Event)
     suspend fun updateEvents(events: List<Event>)
     suspend fun removeEvent(plantId: Int)
@@ -18,7 +19,7 @@ class EventRepositoryImpl(
         eventDao.insertEvent(event)
     }
 
-    override suspend fun getEvents(): List<Event> {
+    override fun getEvents(): Flow<List<Event>> {
         return eventDao.getEvents()
     }
 

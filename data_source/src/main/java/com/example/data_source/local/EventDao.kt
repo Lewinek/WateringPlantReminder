@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 interface EventDao {
 
     @Query("SELECT * FROM `event`")
-    suspend fun getEvents(): List<Event>
+    fun getEvents(): Flow<List<Event>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertEvent(vararg event: Event)
