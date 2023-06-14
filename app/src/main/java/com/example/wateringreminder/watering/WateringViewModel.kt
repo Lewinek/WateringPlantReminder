@@ -34,12 +34,10 @@ class WateringViewModel(
 
     fun changeWaterState(notification: WaterThePlantNotification) {
         viewModelScope.launch {
-//            if (!notification.date.isAfter(LocalDate.now())) {
-//                val event = eventRepository.getEvents().findLast { notification.eventId == it.id }
-//                val newEvent = event?.copy(isWatered = !event.isWatered)
-//                newEvent?.let { eventRepository.updateEvent(it) }
-//                getPlantsThatNeedWatering()
-//            }
+            if (!notification.date.isAfter(LocalDate.now())) {
+                val event = eventRepository.getEventById(notification.eventId)
+                eventRepository.updateEvent(event.copy(isWatered = !event.isWatered))
+            }
         }
     }
 }
