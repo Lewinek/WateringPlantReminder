@@ -7,6 +7,7 @@ import kotlinx.coroutines.flow.Flow
 interface EventRepository {
     suspend fun insertEvent(event: Event)
     fun getEvents(): Flow<List<Event>>
+    fun getEventsToUpdate(): List<Event>
     suspend fun getEventById(id: Int): Event
     suspend fun updateEvent(event: Event)
     suspend fun updateEvents(events: List<Event>)
@@ -22,6 +23,10 @@ class EventRepositoryImpl(
 
     override fun getEvents(): Flow<List<Event>> {
         return eventDao.getEvents()
+    }
+
+    override fun getEventsToUpdate(): List<Event> {
+        return eventDao.getEventsToUpdate()
     }
 
     override suspend fun getEventById(id: Int): Event {
