@@ -1,13 +1,13 @@
 package com.example.wateringreminder
 
 import com.example.data_source.EventRepository
+import com.example.data_source.local.Event
 import java.time.LocalDate
 
 class UpdateWateringDayForEvents(private val eventRepository: EventRepository) {
 
     suspend operator fun invoke() {
-        val events = eventRepository.getEvents()
-        events.filter {
+        val events: List<Event> = eventRepository.getEventsToUpdate().filter {
             it.wateringDate.isBefore(LocalDate.now())
             it.isWatered
         }.map {
