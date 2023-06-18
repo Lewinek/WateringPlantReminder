@@ -17,7 +17,7 @@ val appModule = module {
 
     factory { GetPlantNotificationUseCase(get()) }
     factory { ScheduleNewDayTaskUseCase(get()) }
-    factory { UpdateWateringDayForEvents(get()) }
+    factory { UpdateWateringDayForEventsUseCase(get()) }
 
     worker { UpdateEventWorker(androidContext(), get()) }
     single { WorkManager.getInstance(get()) }

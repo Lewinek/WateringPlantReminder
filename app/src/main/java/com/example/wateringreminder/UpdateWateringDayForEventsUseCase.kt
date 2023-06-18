@@ -3,7 +3,7 @@ package com.example.wateringreminder
 import com.example.data_source.EventRepository
 import java.time.LocalDate
 
-class UpdateWateringDayForEvents(private val eventRepository: EventRepository) {
+class UpdateWateringDayForEventsUseCase(private val eventRepository: EventRepository) {
 
     suspend operator fun invoke() {
         val events = eventRepository.getEvents()
