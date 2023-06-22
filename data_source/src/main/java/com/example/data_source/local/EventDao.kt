@@ -7,7 +7,13 @@ import kotlinx.coroutines.flow.Flow
 interface EventDao {
 
     @Query("SELECT * FROM `event`")
-    suspend fun getEvents(): List<Event>
+    fun getEvents(): Flow<List<Event>>
+
+    @Query("SELECT * FROM `event`")
+    fun getEventsToUpdate(): List<Event>
+
+    @Query("SELECT * FROM event WHERE id = :id")
+    suspend fun getEventById(id: Int): Event
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertEvent(vararg event: Event)

@@ -16,8 +16,9 @@ val appModule = module {
     viewModel { MyPlantsViewModel(get(), get()) }
 
     factory { GetPlantNotificationUseCase(get()) }
-    factory { ScheduleNewDayTaskUseCase(get()) }
+    factory { ScheduleNewDayTaskUseCase(get(), get()) }
     factory { UpdateWateringDayForEventsUseCase(get()) }
+    factory { CalculateInitialDelayUseCase() }
 
     worker { UpdateEventWorker(androidContext(), get()) }
     single { WorkManager.getInstance(get()) }
