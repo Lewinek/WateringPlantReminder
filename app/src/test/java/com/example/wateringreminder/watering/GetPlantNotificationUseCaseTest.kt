@@ -17,7 +17,7 @@ class GetPlantNotificationUseCaseTest {
 
     private val rangeOfDays = 30
 
-    private fun generateEvents(): List<Event> {
+     fun generateEvents(): List<Event> {
         val events = mutableListOf<Event>()
         val currentDate = LocalDate.now()
 
