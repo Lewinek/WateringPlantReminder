@@ -7,13 +7,14 @@ import com.example.data_source.local.Event
 import com.example.data_source.local.PlantCached
 import io.kotest.matchers.shouldBe
 import io.mockk.coEvery
+import io.mockk.coVerify
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.test.runTest
-import org.junit.Assert.assertEquals
+import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import java.time.LocalDate
 
@@ -21,11 +22,9 @@ class GetPlantNotificationUseCaseTest {
 
     private val rangeOfDays: Long = 30
     private fun generateEvents(): Flow<List<Event>> {
-        val events = mutableListOf<Event>()
         val currentDate = LocalDate.now()
-
-        for (i in 1..5) {
-            val event = Event(
+        val events = (1..5).map { i ->
+            Event(
                 id = i,
                 wateringDate = currentDate.plusDays(i.toLong()),
                 isWatered = false,
@@ -36,51 +35,38 @@ class GetPlantNotificationUseCaseTest {
                     location = "Location $i"
                 )
             )
-            events.add(event)
         }
         return flowOf(events)
     }
 
     @Test
+    fun `GIVEN events WHEN invoke THEN getEvents should be called`() {
+
+        val fixture = Fixture().withEventsList()
+
+        fixture.sut.invoke()
+
+        fixture.verifyGetPlantsTriggered()
+    }
+
+    @Test
     fun `GIVEN zero events in repository WHEN invoke useCase THEN return zero notifications`() =
         runTest {
-            val repository = mockk<EventRepositoryImpl> {
-                coEvery {
-                    getEvents()
-                } returns flowOf(emptyList())
-            }
-            val useCase = GetPlantNotificationUseCase(repository)
-            val events = useCase().toList().flatten()
+            //Prepare
+            val fixture = Fixture().withEmptyList()
 
-            events.size shouldBe 0
+            //When
+            val notifications = fixture.sut.invoke().toList().flatten()
+
+            //Then
+            notifications.size shouldBe 0
         }
 
     @Test
-    fun `GIVEN event WHEN invoke useCase THEN return  notification with repeated events`() =
+    fun `GIVEN event WHEN invoke useCase THEN return notification with repeated events`() =
         runTest {
-            val events = listOf(
-                Event(
-                    id = 1,
-                    wateringDate = LocalDate.now(),
-                    isWatered = false,
-                    recurringInterval = 7,
-                    plantCached = PlantCached(
-                        id = 1,
-                        name = "Plant",
-                        location = "Location"
-                    )
-                )
-            )
-
-            val repository = mockk<EventRepositoryImpl> {
-                coEvery {
-                    getEvents()
-                } returns flowOf(events)
-            }
-
-            val useCase = GetPlantNotificationUseCase(repository)
-            val result = useCase.invoke().toList().flatten()
-
+            //Prepare
+            val fixture = Fixture().withSingleEvent()
             val expectedNotifications = listOf(
                 WaterThePlantNotification(
                     eventId = 1,
@@ -114,137 +100,112 @@ class GetPlantNotificationUseCaseTest {
                 )
             )
 
-            assertEquals(expectedNotifications, result)
+            //When
+            val notifications = fixture.sut.invoke().toList().flatten()
+
+            //Then
+            Assertions.assertEquals(expectedNotifications, notifications)
         }
 
     @Test
     fun `GIVEN event with date earlier than range of days from today WHEN invoke useCase THEN return notification without repeated events`() =
         runTest {
-            val repository = mockk<EventRepositoryImpl> {
-                coEvery {
-                    getEvents()
-                } returns flowOf(
-                    listOf(
-                        Event(
-                            id = 1,
-                            wateringDate = LocalDate.now().minusDays(rangeOfDays),
-                            isWatered = false,
-                            recurringInterval = 7,
-                            plantCached = PlantCached(
-                                id = 2,
-                                name = "Plant",
-                                location = "Location"
-                            )
-                        )
-                    )
-                )
-            }
+            //Prepare
+            val fixture =
+                Fixture().withSingleEvent(wateringDate = LocalDate.now().minusDays(rangeOfDays))
 
-            val useCase = GetPlantNotificationUseCase(repository)
-            val events = useCase().toList().flatten()
+            //When
+            val notifications = fixture.sut.invoke().toList().flatten()
 
-            events.size shouldBe 1
+            //Then
+            notifications.size shouldBe 1
         }
 
     @Test
     fun `GIVEN event with date before today WHEN invoke useCase THEN return notification with repeated events`() =
         runTest {
-            val repository = mockk<EventRepositoryImpl> {
-                coEvery {
-                    getEvents()
-                } returns flowOf(
-                    listOf(
-                        Event(
-                            id = 1,
-                            wateringDate = LocalDate.now().minusDays(2),
-                            isWatered = false,
-                            recurringInterval = 7,
-                            plantCached = PlantCached(
-                                id = 2,
-                                name = "Plant",
-                                location = "Location"
-                            )
-                        )
-                    )
-                )
-            }
+            //Prepare
+            val fixture = Fixture().withSingleEvent(wateringDate = LocalDate.now().minusDays(2))
 
-            val useCase = GetPlantNotificationUseCase(repository)
-            val events = useCase().toList().flatten()
+            //When
+            val notifications = fixture.sut.invoke().toList().flatten()
 
-            events.size shouldBe 5
+            //Then
+            notifications.size shouldBe 5
         }
 
     @Test
     fun `GIVEN event with date later than range of days from today WHEN invoke useCase THEN return notification without repeated events`() =
         runTest {
-            val repository = mockk<EventRepositoryImpl> {
-                coEvery {
-                    getEvents()
-                } returns flowOf(
-                    listOf(
-                        Event(
-                            id = 1,
-                            wateringDate = LocalDate.now().plusDays(rangeOfDays),
-                            isWatered = false,
-                            recurringInterval = 7,
-                            plantCached = PlantCached(
-                                id = 2,
-                                name = "Plant",
-                                location = "Location"
-                            )
-                        )
-                    )
-                )
-            }
+            //Prepare
+            val fixture =
+                Fixture().withSingleEvent(wateringDate = LocalDate.now().plusDays(rangeOfDays + 1))
 
-            val useCase = GetPlantNotificationUseCase(repository)
-            val events = useCase().toList().flatten()
+            //When
+            val notifications = fixture.sut.invoke().toList().flatten()
 
-            events.size shouldBe 5
+            //Then
+            notifications.size shouldBe 1
         }
 
     @Test
-    fun `GIVEN event with date after today WHEN invoke useCase THEN return notification with repeated events`() =
+    fun `GIVEN event with date after today WHEN invoke useCase THEN return notifications with repeated events`() =
         runTest {
-            val repository = mockk<EventRepositoryImpl> {
-                coEvery {
-                    getEvents()
-                } returns flowOf(
-                    listOf(
-                        Event(
-                            id = 1,
-                            wateringDate = LocalDate.now().plusDays(5),
-                            isWatered = false,
-                            recurringInterval = 7,
-                            plantCached = PlantCached(
-                                id = 2,
-                                name = "Plant",
-                                location = "Location"
-                            )
-                        )
-                    )
-                )
-            }
+            //Prepare
+            val fixture = Fixture().withSingleEvent(wateringDate = LocalDate.now().plusDays(2))
 
-            val useCase = GetPlantNotificationUseCase(repository)
-            val events = useCase().toList().flatten()
+            //When
+            val notifications = fixture.sut.invoke().toList().flatten()
 
-            events.size shouldBe 5
+            //Then
+            notifications.size shouldBe 4
         }
 
     @Test
     fun `GIVEN events in repository WHEN invoke useCase THEN return notifications`() =
         runTest {
-            val repository = mockk<EventRepositoryImpl> {
-                coEvery {
-                    getEvents()
-                } returns generateEvents()
+            //Prepare
+            val fixture = Fixture().withEventsList()
+
+            //When
+            val notifications = fixture.sut.invoke().toList().flatten()
+
+            //Then
+            notifications.size shouldBe 21
+        }
+
+    inner class Fixture {
+        private val repository = mockk<EventRepositoryImpl>()
+
+        val sut = GetPlantNotificationUseCase(repository)
+
+        fun withEventsList() = apply {
+            coEvery { repository.getEvents() } returns generateEvents()
+        }
+
+        fun withSingleEvent(wateringDate: LocalDate = LocalDate.now(), isWatered: Boolean = false) =
+            apply {
+                coEvery { repository.getEvents() } returns flowOf(
+                    listOf(
+                        Event(
+                            id = 1,
+                            wateringDate = wateringDate,
+                            isWatered = isWatered,
+                            recurringInterval = 7,
+                            plantCached = PlantCached(
+                                id = 1,
+                                name = "Plant",
+                                location = "Location"
+                            )
+                        )
+                    )
+                )
             }
 
-            val useCase = GetPlantNotificationUseCase(repository)
-            val events = useCase().toList().flatten()
-
-            events.size shouldBe 25
+        fun withEmptyList() = apply {
+            coEvery { repository.getEvents() } returns flowOf(emptyList())
         }
+
+        fun verifyGetPlantsTriggered() = coVerify { repository.getEvents() }
+    }
 }
