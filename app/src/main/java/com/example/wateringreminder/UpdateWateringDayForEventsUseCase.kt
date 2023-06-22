@@ -7,7 +7,7 @@ import java.time.LocalDate
 class UpdateWateringDayForEventsUseCase(private val eventRepository: EventRepository) {
 
     suspend operator fun invoke() {
-        val events = eventRepository.getEvents()
+        val events = eventRepository.getEventsToUpdate()
         val updatedEvents = updateOverdueWateringEvents(events)
         eventRepository.updateEvents(updatedEvents)
     }
