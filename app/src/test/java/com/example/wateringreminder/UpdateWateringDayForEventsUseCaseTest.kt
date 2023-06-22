@@ -179,7 +179,7 @@ class UpdateWateringDayForEventsUseCaseTest {
         val repository = mockk<EventRepositoryImpl>()
         coEvery { repository.getEvents() } returns events
         val useCase = UpdateWateringDayForEventsUseCase(repository)
-        val updatedList = useCase.updateWateringInfo(repository.getEvents())
+        val updatedList = useCase.updateOverdueWateringEvents(repository.getEvents())
 
         assertEquals(updatedList,expectedList )
     }
