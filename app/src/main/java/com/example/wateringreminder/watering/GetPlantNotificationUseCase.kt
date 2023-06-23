@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.*
 import java.time.LocalDate
 
 class GetPlantNotificationUseCase(private val repository: EventRepository) {
-    private val rangeOfDays = 30
+    private val rangeOfDays = 30L
 
     operator fun invoke(): Flow<List<WaterThePlantNotification>> {
         return repository.getEvents()
@@ -20,7 +20,9 @@ class GetPlantNotificationUseCase(private val repository: EventRepository) {
                                 isWatered = false
                             )
                         }.filter {
-                            it.wateringDate.isAfter(LocalDate.now())
+                            it.wateringDate.isAfter(LocalDate.now()) && it.wateringDate.isBefore(
+                                LocalDate.now().plusDays(rangeOfDays)
+                            )
                         }
                     val filteredEvents = listOf(event) + repeatedEvents
                     val mappedNotifications = filteredEvents.map { mapToNotification(it) }
