@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 
 class MyPlantsViewModel(
     private val plantRepository: PlantRepository,
-    private val eventRepository: EventRepository
+    private val eventRepository: EventRepository,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(MyPlantsUiState())
@@ -23,7 +23,7 @@ class MyPlantsViewModel(
         getPlants()
     }
 
-    private fun getPlants() {
+    fun getPlants() {
         viewModelScope.launch {
             plantRepository.getPlants().collect {
                 _uiState.update { uiState -> uiState.copy(plants = it) }
