@@ -16,7 +16,7 @@ import java.time.LocalDate
 
 class PlantCreationViewModel(
     private val plantRepository: PlantRepository,
-    private val eventRepository: EventRepository
+    private val eventRepository: EventRepository,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(WateringUiState())
@@ -42,7 +42,7 @@ class PlantCreationViewModel(
         }
     }
 
-    private fun createEvent(plant: PlantCached): Event {
+    fun createEvent(plant: PlantCached): Event {
         return Event(
             wateringDate = LocalDate.now(),
             recurringInterval = 1,
