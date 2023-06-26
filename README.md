@@ -11,6 +11,8 @@ WateringReminder is a mobile application that helps users manage their flower co
 - **Collection Overview**: You have access to an overview of your flower collection, where you can view information about each flower and check if watering time is approaching.
 - **Removal**: You can remove flowers from your collection.
 
+![Plants](preview/MyPlants.jpg)
+
 ## Features in progress
 
 - **Add Flowers Layout**: When the layout is finished, the new fields species, description, photos will be added,
