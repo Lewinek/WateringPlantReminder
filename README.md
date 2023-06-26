@@ -10,8 +10,11 @@ WateringReminder is a mobile application that helps users manage their flower co
 - **Watering Schedule**: For each flower, you can set a watering schedule by specifying the time interval (e.g., every 2 days, weekly, etc.) at which it should be watered.
 - **Collection Overview**: You have access to an overview of your flower collection, where you can view information about each flower and check if watering time is approaching.
 - **Removal**: You can remove flowers from your collection.
+<div style="display: flex; gap: 500px;">
+  <img src="preview/WateringInfo.jpg" alt="Plants" width="40%" height="40%">
+  <img src="preview/MyPlants.jpg" alt="Plants" width="40%" height="40%">
+</div>
 
-![Plants](preview/MyPlants.jpg)
 
 ## Features in progress
 
